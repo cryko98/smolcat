@@ -62,6 +62,7 @@ export default function App() {
   const [showPeekCat, setShowPeekCat] = useState(false);
   const [peeksCount, setPeeksCount] = useState(0);
 
+  // Official SMOLCAT contract address updated on 2026-07-16
   const contractAddress = "TGTrnjkirTrmJwdrHZ9MRh4J46C8jFRMs3Ayyozpump";
 
   // Watch scroll to show peeking cat
