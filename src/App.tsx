@@ -62,7 +62,7 @@ export default function App() {
   const [showPeekCat, setShowPeekCat] = useState(false);
   const [peeksCount, setPeeksCount] = useState(0);
 
-  const contractAddress = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  const contractAddress = "TGTrnjkirTrmJwdrHZ9MRh4J46C8jFRMs3Ayyozpump";
 
   // Watch scroll to show peeking cat
   useEffect(() => {
@@ -203,9 +203,9 @@ export default function App() {
               <Volume2 size={18} />
             </button>
 
-            {/* Fictional X.com 2026 styled button */}
+            {/* X.com / Twitter link */}
             <a 
-              href="https://x.com" 
+              href="https://x.com/smolcatfun" 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-2 bg-white/5 rounded-full border border-white/10 text-white/80 hover:text-[#FFB7C5] hover:bg-white/10 transition-all active:translate-y-[1px]"
