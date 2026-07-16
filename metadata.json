@@ -1,0 +1,6 @@
+{
+  "name": "smol cat",
+  "description": "The smolest cat on Solana, here to save the trenches and make every trader happy again.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

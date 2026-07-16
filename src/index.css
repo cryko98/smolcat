@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Comfortaa", "Fredoka", ui-sans-serif, system-ui, sans-serif;
+  --font-bubble: "Fredoka", "Comfortaa", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer utilities {
+  /* Cute playful sticker shadows and outlines resembling the reference image */
+  .bubble-card {
+    background-color: #ffffff;
+    border: 6px solid #1B1625;
+    border-radius: 24px;
+    box-shadow: 8px 8px 0px 0px #1B1625;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .bubble-card-purple {
+    background-color: #e4dbff;
+    border: 6px solid #1B1625;
+    border-radius: 24px;
+    box-shadow: 8px 8px 0px 0px #1B1625;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .bubble-card:hover, .bubble-card-purple:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px 0px #1B1625;
+  }
+
+  .bubble-btn {
+    border: 4px solid #1B1625;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px 0px #1B1625;
+    transition: all 0.1s ease;
+  }
+
+  .bubble-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px 0px #1B1625;
+  }
+
+  .bubble-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px #1B1625;
+  }
+
+  /* Text stroke for cute comic effect */
+  .text-stroke-thick {
+    -webkit-text-stroke: 6px #1B1625;
+    paint-order: stroke fill;
+  }
+
+  .text-stroke-medium {
+    -webkit-text-stroke: 4px #1B1625;
+    paint-order: stroke fill;
+  }
+
+  /* Custom animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+  }
+
+  .animate-float-slow {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-fast {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
