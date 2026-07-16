@@ -103,7 +103,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-[#1B1625] selection:text-white pb-12 text-white relative overflow-hidden bg-[#b19df7]">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-[#1B1625] selection:text-white pb-12 text-white relative overflow-x-hidden bg-[#b19df7]">
       {/* Background Atmosphere */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#9275f0] rounded-full blur-[160px] opacity-45"></div>
@@ -160,8 +160,16 @@ export default function App() {
       {/* HEADER NAVBAR */}
       <header className="sticky top-0 z-50 px-4 md:px-8 py-3 bg-[#110C16]/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* Logo brand */}
-          <a href="#" className="flex items-center gap-3 group">
+          {/* Logo brand with smooth back-to-top scroll */}
+          <a 
+            href="#hero" 
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.history.pushState(null, '', '#hero');
+            }}
+            className="flex items-center gap-3 group"
+          >
             <div className="w-10 h-10 rounded-full border border-white/20 overflow-hidden bg-white/5 flex items-center justify-center transition-transform group-hover:scale-105">
               <img 
                 src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/photo_2026-07-16_23-54-53.jpg?v=1784235310" 
@@ -219,7 +227,7 @@ export default function App() {
       </header>
 
       {/* HERO SECTION */}
-      <section className="relative px-4 md:px-8 pt-10 md:pt-16 pb-12 z-10 max-w-7xl mx-auto w-full">
+      <section id="hero" className="relative px-4 md:px-8 pt-10 md:pt-16 pb-12 z-10 max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
           {/* Hero text */}
