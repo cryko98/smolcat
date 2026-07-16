@@ -57,15 +57,19 @@
     box-shadow: 0 2px 6px 0 rgba(255, 183, 197, 0.2);
   }
 
-  /* High fidelity neon typography replacements */
+  /* High fidelity custom bubble typography matching the original comic image */
   .text-stroke-thick {
     color: #FFFFFF;
-    text-shadow: 0 0 20px rgba(255, 183, 197, 0.35);
+    -webkit-text-stroke: 8px #1B1625;
+    paint-order: stroke fill;
+    text-shadow: 6px 6px 0px #1B1625;
   }
 
   .text-stroke-medium {
-    color: #FFB7C5;
-    text-shadow: 0 0 15px rgba(153, 69, 255, 0.4);
+    color: #FFFFFF;
+    -webkit-text-stroke: 5px #1B1625;
+    paint-order: stroke fill;
+    text-shadow: 4px 4px 0px #1B1625;
   }
 
   /* Custom smooth floating animations */
@@ -85,7 +89,7 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0A0A0A;
+  background-color: #b19df7;
 }
 
 /* Custom modern scrollbar */
@@ -93,7 +97,7 @@ html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: #b19df7;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);

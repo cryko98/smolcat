@@ -25,6 +25,30 @@ import SmolCatIllustration from './components/SmolCatIllustration';
 import MemeMachine from './components/MemeMachine';
 import TrenchSaverGame from './components/TrenchSaverGame';
 
+function PawPrint({ className = '', size = 60, opacity = 0.25, rotate = 0 }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 100 100" 
+      fill="#9275f0" 
+      style={{ opacity, transform: `rotate(${rotate}deg)` }}
+      className={className}
+    >
+      {/* Large bottom pad */}
+      <path d="M 50,55 C 32,55 28,78 35,88 C 42,98 58,98 65,88 C 72,78 68,55 50,55 Z" />
+      {/* Toe 1 (leftmost) */}
+      <ellipse cx="23" cy="42" rx="7" ry="10" transform="rotate(-30, 23, 42)" />
+      {/* Toe 2 */}
+      <ellipse cx="39" cy="26" rx="8" ry="12" transform="rotate(-10, 39, 26)" />
+      {/* Toe 3 */}
+      <ellipse cx="61" cy="26" rx="8" ry="12" transform="rotate(10, 61, 26)" />
+      {/* Toe 4 (rightmost) */}
+      <ellipse cx="77" cy="42" rx="7" ry="10" transform="rotate(30, 77, 42)" />
+    </svg>
+  );
+}
+
 export default function App() {
   const [copied, setCopied] = useState(false);
   const [petCount, setPetCount] = useState(() => {
@@ -79,55 +103,62 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-[#FFB7C5] selection:text-black pb-12 text-[#F5F5F5] relative overflow-hidden bg-[#0A0A0A]">
+    <div className="min-h-screen flex flex-col font-sans selection:bg-[#1B1625] selection:text-white pb-12 text-white relative overflow-hidden bg-[#b19df7]">
       {/* Background Atmosphere */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#FFB7C5] rounded-full blur-[160px] opacity-25"></div>
-        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#9945FF] rounded-full blur-[140px] opacity-15"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#9275f0] rounded-full blur-[160px] opacity-45"></div>
+        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#9945FF] rounded-full blur-[140px] opacity-35"></div>
       </div>
 
-      {/* BACKGROUND FLOATING ORNAMENTS (No Emojis) */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-20">
-        {/* Playful vector paw prints */}
-        <div className="absolute top-[15%] left-[8%] animate-float-slow">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="#FFB7C5">
-            <circle cx="20" cy="24" r="9" />
-            <circle cx="11" cy="11" r="5" />
-            <circle cx="20" cy="7" r="5" />
-            <circle cx="29" cy="11" r="5" />
-          </svg>
+      {/* BACKGROUND SCATTERED PAW PRINTS MATCHING USER IMAGE */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Row 1 */}
+        <div className="absolute top-[8%] left-[5%] animate-float-slow">
+          <PawPrint size={75} opacity={0.35} rotate={-15} />
         </div>
-        <div className="absolute top-[45%] right-[5%] animate-float-fast">
-          <svg width="60" height="60" viewBox="0 0 40 40" fill="#9945FF">
-            <circle cx="20" cy="24" r="9" />
-            <circle cx="11" cy="11" r="5" />
-            <circle cx="20" cy="7" r="5" />
-            <circle cx="29" cy="11" r="5" />
-          </svg>
+        <div className="absolute top-[12%] right-[10%] animate-float-fast">
+          <PawPrint size={65} opacity={0.3} rotate={25} />
         </div>
-        <div className="absolute bottom-[20%] left-[6%] animate-float-slow">
-          <svg width="35" height="35" viewBox="0 0 40 40" fill="#FFB7C5">
-            <circle cx="20" cy="24" r="9" />
-            <circle cx="11" cy="11" r="5" />
-            <circle cx="20" cy="7" r="5" />
-            <circle cx="29" cy="11" r="5" />
-          </svg>
+
+        {/* Row 2 */}
+        <div className="absolute top-[32%] left-[12%] animate-float-fast">
+          <PawPrint size={55} opacity={0.25} rotate={10} />
         </div>
-        {/* Cute sparkles */}
-        <div className="absolute top-[25%] right-[20%] animate-ping" style={{ animationDuration: '4s' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB7C5" strokeWidth="2">
+        <div className="absolute top-[28%] right-[4%] animate-float-slow">
+          <PawPrint size={80} opacity={0.35} rotate={-20} />
+        </div>
+
+        {/* Row 3 */}
+        <div className="absolute top-[52%] left-[4%] animate-float-slow">
+          <PawPrint size={85} opacity={0.4} rotate={35} />
+        </div>
+        <div className="absolute top-[58%] right-[14%] animate-float-fast">
+          <PawPrint size={60} opacity={0.25} rotate={-5} />
+        </div>
+
+        {/* Row 4 */}
+        <div className="absolute bottom-[22%] left-[8%] animate-float-fast">
+          <PawPrint size={70} opacity={0.35} rotate={-15} />
+        </div>
+        <div className="absolute bottom-[18%] right-[6%] animate-float-slow">
+          <PawPrint size={90} opacity={0.3} rotate={40} />
+        </div>
+
+        {/* Floating sparkles */}
+        <div className="absolute top-[22%] right-[22%] animate-ping" style={{ animationDuration: '5s' }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5">
             <path d="M12 3v18M3 12h18" strokeLinecap="round" />
           </svg>
         </div>
-        <div className="absolute bottom-[35%] left-[25%] animate-ping" style={{ animationDuration: '6s' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9945FF" strokeWidth="2">
+        <div className="absolute bottom-[38%] left-[28%] animate-ping" style={{ animationDuration: '7s' }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5">
             <path d="M12 3v18M3 12h18" strokeLinecap="round" />
           </svg>
         </div>
       </div>
 
       {/* HEADER NAVBAR */}
-      <header className="sticky top-0 z-50 px-4 md:px-8 py-3 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-white/10">
+      <header className="sticky top-0 z-50 px-4 md:px-8 py-3 bg-[#110C16]/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo brand */}
           <a href="#" className="flex items-center gap-3 group">
@@ -211,7 +242,7 @@ export default function App() {
               transition={{ delay: 0.2 }}
               className="font-bubble text-6xl md:text-8xl font-black text-white text-stroke-thick tracking-tight mb-4"
             >
-              smol cat<br/><span className="text-[#FFB7C5] opacity-80">$smolcat</span>
+              smol cat<br/><span className="text-white text-stroke-thick">$smolcat</span>
             </motion.h1>
 
             <motion.p 
