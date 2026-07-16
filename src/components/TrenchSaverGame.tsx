@@ -200,25 +200,25 @@ export default function TrenchSaverGame() {
   return (
     <div className="grid md:grid-cols-5 gap-8 items-stretch">
       {/* Game Window Card */}
-      <div className="md:col-span-3 bubble-card p-6 flex flex-col justify-between bg-white relative overflow-hidden">
+      <div className="md:col-span-3 bubble-card p-6 flex flex-col justify-between relative overflow-hidden">
         <div>
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center gap-2">
-              <Gamepad2 className="text-[#0B5BF0]" size={22} />
-              <h3 className="font-bubble font-bold text-xl text-[#1B1625]">TRENCH SAVER</h3>
+              <Gamepad2 className="text-[#FFB7C5]" size={22} />
+              <h3 className="font-bubble font-bold text-xl text-white">TRENCH SAVER</h3>
             </div>
             <div className="flex items-center gap-4">
-              <span className="font-mono text-xs font-bold bg-[#E4DBFF] border border-[#1B1625] px-2.5 py-1 rounded-lg">
+              <span className="font-mono text-xs font-bold bg-[#FFB7C5]/10 border border-[#FFB7C5]/30 text-[#FFB7C5] px-2.5 py-1 rounded-lg">
                 SCORE: {score}
               </span>
-              <span className="font-mono text-xs font-bold bg-amber-100 border border-[#1B1625] px-2.5 py-1 rounded-lg flex items-center gap-1">
-                <Trophy size={12} className="text-amber-600" />
+              <span className="font-mono text-xs font-bold bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                <Trophy size={12} className="text-amber-500" />
                 BEST: {highScore}
               </span>
             </div>
           </div>
 
-          <p className="text-xs text-[#4c3d69] mb-4 leading-relaxed font-semibold">
+          <p className="text-xs text-white/70 mb-4 leading-relaxed font-semibold">
             Tap the window or press SPACE to jump over red candlesticks and carpet rugs. Save the traders!
           </p>
         </div>
@@ -226,17 +226,17 @@ export default function TrenchSaverGame() {
         {/* Dynamic Game Frame */}
         <div 
           onClick={handleJump}
-          className="relative bg-[#f5f1ff] border-4 border-[#1B1625] rounded-2xl h-48 overflow-hidden cursor-pointer select-none"
+          className="relative bg-[#0B0912]/80 border border-white/10 rounded-2xl h-48 overflow-hidden cursor-pointer select-none"
         >
           {/* Subtle grid pattern background */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#1b1625_1px,transparent_1px),linear-gradient(to_bottom,#1b1625_1px,transparent_1px)] [background-size:20px_20px]"></div>
+          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
           {/* Clouds or custom decorations in the sky */}
-          <div className="absolute top-4 left-10 w-16 h-4 bg-white/60 border border-[#1B1625]/20 rounded-full"></div>
-          <div className="absolute top-8 right-16 w-20 h-5 bg-white/60 border border-[#1B1625]/20 rounded-full"></div>
+          <div className="absolute top-4 left-10 w-16 h-4 bg-white/5 border border-white/10 rounded-full"></div>
+          <div className="absolute top-8 right-16 w-20 h-5 bg-white/5 border border-white/10 rounded-full"></div>
 
           {/* Ground level line */}
-          <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#E4DBFF] border-t-4 border-[#1B1625]"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-[#9945FF]/40 to-[#FFB7C5]/40 border-t border-white/20"></div>
 
           {/* SMOL CAT SPRITE */}
           <div 
@@ -269,14 +269,14 @@ export default function TrenchSaverGame() {
               {obstacleType === 'candle' ? (
                 // RED CANDLESTICK
                 <div className="w-full h-full flex flex-col items-center justify-end">
-                  <div className="w-1 h-3 bg-rose-600 border border-[#1B1625]"></div>
-                  <div className="w-4 h-5 bg-rose-500 border-2 border-[#1B1625] rounded-sm"></div>
+                  <div className="w-1 h-3 bg-rose-600 border border-rose-400"></div>
+                  <div className="w-4 h-5 bg-rose-500 border border-rose-300 rounded-sm"></div>
                 </div>
               ) : (
                 // RUG PULL
                 <div className="w-full h-full flex items-end">
-                  <div className="w-6 h-4 bg-rose-700 border-2 border-[#1B1625] rounded-t-lg relative">
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 font-mono text-[8px] font-bold text-rose-600">RUG</span>
+                  <div className="w-6 h-4 bg-rose-700 border border-rose-400 rounded-t-lg relative">
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 font-mono text-[8px] font-bold text-rose-500">RUG</span>
                   </div>
                 </div>
               )}
@@ -285,15 +285,15 @@ export default function TrenchSaverGame() {
 
           {/* SCREEN STATE OVERLAYS */}
           {gameState === 'idle' && (
-            <div className="absolute inset-0 bg-[#e4dbff]/90 flex flex-col items-center justify-center p-4 text-center">
-              <Gamepad2 className="text-[#0B5BF0] mb-2" size={32} />
-              <h4 className="font-bubble font-bold text-lg text-[#1B1625]">LAUNCH TRENCH SAVER</h4>
-              <p className="text-xs text-[#4c3d69] font-medium mt-1">
+            <div className="absolute inset-0 bg-[#0B0912]/95 backdrop-blur-md flex flex-col items-center justify-center p-4 text-center">
+              <Gamepad2 className="text-[#FFB7C5] mb-2 animate-pulse" size={32} />
+              <h4 className="font-bubble font-bold text-lg text-white">LAUNCH TRENCH SAVER</h4>
+              <p className="text-xs text-white/70 font-medium mt-1">
                 Help smol cat save Solana degens. Tap to jump!
               </p>
               <button 
                 onClick={(e) => { e.stopPropagation(); startGame(); }}
-                className="mt-3 bg-[#0B5BF0] hover:bg-[#0747be] text-white font-bubble text-sm py-2 px-5 border-2 border-[#1B1625] rounded-xl shadow-md"
+                className="mt-3 bg-[#FFB7C5] hover:bg-white text-black font-bubble text-sm py-2 px-5 border border-transparent rounded-xl shadow-lg font-bold cursor-pointer"
               >
                 START GAME
               </button>
@@ -301,14 +301,14 @@ export default function TrenchSaverGame() {
           )}
 
           {gameState === 'gameover' && (
-            <div className="absolute inset-0 bg-[#1B1625]/90 flex flex-col items-center justify-center p-4 text-center">
-              <h4 className="font-bubble font-bold text-xl text-[#FFB4B4] uppercase tracking-wide">TRENCH OVERLOAD!</h4>
+            <div className="absolute inset-0 bg-[#0B0912]/95 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center">
+              <h4 className="font-bubble font-bold text-xl text-[#FFB7C5] uppercase tracking-wide">TRENCH OVERLOAD!</h4>
               <p className="text-xs text-white/80 mt-1 font-mono">
                 You saved {score} $smolcat tokens worth of traders!
               </p>
               <button 
                 onClick={(e) => { e.stopPropagation(); startGame(); }}
-                className="mt-4 bg-[#FFB4B4] hover:bg-pink-100 text-[#1B1625] font-bubble text-sm py-2 px-5 border-2 border-white rounded-xl shadow-md flex items-center gap-2 font-bold"
+                className="mt-4 bg-[#FFB7C5] hover:bg-white text-black font-bubble text-sm py-2 px-5 border border-transparent rounded-xl shadow-lg flex items-center gap-2 font-bold cursor-pointer"
               >
                 <RotateCcw size={14} />
                 TRY AGAIN
@@ -318,7 +318,7 @@ export default function TrenchSaverGame() {
         </div>
 
         {/* Footer controls instruction */}
-        <div className="mt-4 flex justify-between items-center text-[10px] font-mono text-[#4c3d69] font-bold">
+        <div className="mt-4 flex justify-between items-center text-[10px] font-mono text-white/40 font-bold">
           <span>CONTROLS: SPACEBAR OR TOUCH SCREEN</span>
           <span>SPEED MULTIPLIER: {(speed / 5).toFixed(1)}X</span>
         </div>
@@ -328,17 +328,17 @@ export default function TrenchSaverGame() {
       <div className="md:col-span-2 bubble-card-purple p-6 flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Shield className="text-[#0B5BF0]" size={20} />
-            <h3 className="font-bubble font-bold text-lg text-[#1B1625]">SAVED DEGENS</h3>
+            <Shield className="text-[#FFB7C5]" size={20} />
+            <h3 className="font-bubble font-bold text-lg text-white">SAVED DEGENS</h3>
           </div>
-          <p className="text-xs text-[#4c3d69] leading-relaxed mb-4 font-semibold">
+          <p className="text-xs text-white/70 leading-relaxed mb-4 font-semibold">
             Whenever you jump over red candles, you prevent a trader from being liquidated or rugged. Here is who you have rescued recently:
           </p>
 
           <div className="space-y-2 mt-2">
             {savedTraders.length === 0 ? (
-              <div className="bg-white/40 border border-dashed border-[#1B1625]/20 rounded-xl p-4 text-center">
-                <p className="text-xs font-medium text-[#4c3d69]">
+              <div className="bg-white/5 border border-dashed border-white/10 rounded-xl p-4 text-center">
+                <p className="text-xs font-medium text-white/50">
                   No traders saved yet this round. Run in the trenches to rescue some degens!
                 </p>
               </div>
@@ -346,17 +346,17 @@ export default function TrenchSaverGame() {
               savedTraders.map((trader, idx) => (
                 <div 
                   key={`${trader}-${idx}`}
-                  className="bg-white border-2 border-[#1B1625] rounded-xl p-2.5 flex items-center justify-between shadow-sm animate-bounce-short"
+                  className="bg-white/5 border border-white/10 rounded-xl p-2.5 flex items-center justify-between shadow-sm animate-bounce-short"
                 >
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-[#E4DBFF] border border-[#1B1625] flex items-center justify-center text-[10px] text-[#0B5BF0] font-bold font-mono">
+                    <div className="w-6 h-6 rounded-full bg-[#FFB7C5]/10 border border-[#FFB7C5]/30 flex items-center justify-center text-[10px] text-[#FFB7C5] font-bold font-mono">
                       {trader[0]}
                     </div>
-                    <span className="font-mono text-xs font-bold text-[#1B1625]">
+                    <span className="font-mono text-xs font-bold text-white/95">
                       @{trader}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 border border-emerald-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">
                     <Heart size={10} fill="currentColor" /> SAVED
                   </span>
                 </div>
@@ -365,8 +365,8 @@ export default function TrenchSaverGame() {
           </div>
         </div>
 
-        <div className="bg-[#0B5BF0]/10 border border-[#0B5BF0]/20 rounded-xl p-3 text-center mt-4">
-          <p className="text-[10px] font-mono font-bold text-[#0B5BF0] uppercase tracking-wider">
+        <div className="bg-[#FFB7C5]/10 border border-[#FFB7C5]/20 rounded-xl p-3 text-center mt-4">
+          <p className="text-[10px] font-mono font-bold text-[#FFB7C5] uppercase tracking-wider">
             $smolcat is here to protect the pack
           </p>
         </div>

@@ -180,16 +180,16 @@ export default function MemeMachine() {
   return (
     <div className="grid md:grid-cols-2 gap-8 items-stretch">
       {/* Visual Workspace Card */}
-      <div className="bubble-card p-6 flex flex-col justify-between relative bg-white">
-        <div className="absolute top-4 left-4 bg-[#0B5BF0] text-white font-mono text-xs px-2.5 py-1 rounded-full border-2 border-[#1B1625] font-bold">
+      <div className="bubble-card p-6 flex flex-col justify-between relative">
+        <div className="absolute top-4 left-4 bg-[#FFB7C5]/10 border border-[#FFB7C5]/30 text-[#FFB7C5] font-mono text-xs px-2.5 py-1 rounded-full font-bold">
           LIVE WORKSPACE
         </div>
         
         {/* Cat Frame */}
         <div className="flex-1 flex items-center justify-center p-4 mt-6">
-          <div className="w-64 h-64 md:w-80 md:h-80 relative bg-[#e4dbff] border-4 border-[#1B1625] rounded-3xl overflow-hidden shadow-inner flex items-center justify-center">
+          <div className="w-64 h-64 md:w-80 md:h-80 relative bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
             {/* Pattern */}
-            <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#1b1625_2px,transparent_2px)] [background-size:16px_16px]"></div>
+            <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#FFB7C5_2px,transparent_2px)] [background-size:16px_16px]"></div>
             
             <SmolCatIllustration 
               accessory={accessory}
@@ -199,7 +199,7 @@ export default function MemeMachine() {
             />
 
             {/* Custom Overlay text on card bottom */}
-            <div className="absolute bottom-3 left-3 right-3 bg-white border-2 border-[#1B1625] rounded-xl py-1.5 px-3 text-center shadow-sm">
+            <div className="absolute bottom-3 left-3 right-3 bg-[#0A0A0A]/80 backdrop-blur-md border border-white/10 rounded-xl py-1.5 px-3 text-center shadow-sm">
               <span 
                 className="font-bubble font-bold text-sm tracking-wide block truncate"
                 style={{ color: textColor }}
@@ -213,7 +213,7 @@ export default function MemeMachine() {
         {/* Action button */}
         <button 
           onClick={handleDownloadSVG}
-          className="bubble-btn bg-[#0B5BF0] hover:bg-[#0747be] text-white font-bubble font-bold text-lg py-3.5 px-6 flex items-center justify-center gap-3 w-full"
+          className="bubble-btn bg-[#FFB7C5] hover:bg-white text-black font-bubble font-bold text-lg py-3.5 px-6 flex items-center justify-center gap-3 w-full cursor-pointer mt-4"
         >
           <Download size={20} />
           DOWNLOAD MEME AS SVG
@@ -224,16 +224,16 @@ export default function MemeMachine() {
       <div className="bubble-card-purple p-6 md:p-8 flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Sparkles className="text-[#0B5BF0]" size={24} />
-            <h3 className="font-bubble font-bold text-2xl text-[#1B1625]">DESIGN STUDIO</h3>
+            <Sparkles className="text-[#FFB7C5]" size={24} />
+            <h3 className="font-bubble font-bold text-2xl text-white">DESIGN STUDIO</h3>
           </div>
-          <p className="text-sm text-[#4c3d69] mb-6 leading-relaxed">
+          <p className="text-sm text-white/70 mb-6 leading-relaxed">
             Dress up smol cat, add your custom text to save the Solana trenches, and export a high-quality SVG sticker instantly.
           </p>
 
           {/* Step 1: Accessories */}
           <div className="mb-6">
-            <span className="block text-xs font-mono font-bold uppercase tracking-wider text-[#4c3d69] mb-3">
+            <span className="block text-xs font-mono font-bold uppercase tracking-wider text-white/60 mb-3">
               1. Choose Head Accessory
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -244,10 +244,10 @@ export default function MemeMachine() {
                     playMeow();
                     setAccessory(acc.id);
                   }}
-                  className={`py-2 px-3 rounded-xl border-2 font-bubble text-sm font-semibold transition-all ${
+                  className={`py-2 px-3 rounded-xl border font-bubble text-sm font-semibold transition-all cursor-pointer ${
                     accessory === acc.id
-                      ? 'bg-[#0B5BF0] text-white border-[#1B1625] shadow-sm'
-                      : 'bg-white text-[#1B1625] border-[#1B1625] hover:bg-slate-50'
+                      ? 'bg-[#FFB7C5] text-black border-transparent shadow-md'
+                      : 'bg-white/5 text-white/80 border-white/10 hover:bg-white/10'
                   }`}
                 >
                   {acc.label}
@@ -258,17 +258,17 @@ export default function MemeMachine() {
 
           {/* Step 2: Custom Caption */}
           <div className="mb-6">
-            <span className="block text-xs font-mono font-bold uppercase tracking-wider text-[#4c3d69] mb-3">
+            <span className="block text-xs font-mono font-bold uppercase tracking-wider text-white/60 mb-3">
               2. Add Custom Text
             </span>
             <div className="relative">
-              <Type className="absolute left-3.5 top-3.5 text-gray-400" size={18} />
+              <Type className="absolute left-3.5 top-3.5 text-white/40" size={18} />
               <input
                 type="text"
                 value={caption}
                 onChange={(e) => setCaption(e.target.value.substring(0, 30))}
                 placeholder="Type your meme phrase..."
-                className="w-full bg-white border-2 border-[#1B1625] rounded-xl py-3 pl-10 pr-4 font-sans text-sm focus:outline-none focus:ring-2 focus:ring-[#0B5BF0] placeholder-gray-400 font-bold"
+                className="w-full bg-white/5 border border-white/10 text-white rounded-xl py-3 pl-10 pr-4 font-sans text-sm focus:outline-none focus:ring-2 focus:ring-[#FFB7C5] placeholder-white/30 font-bold"
               />
             </div>
 
@@ -281,7 +281,7 @@ export default function MemeMachine() {
                     playMeow();
                     setCaption(phrase);
                   }}
-                  className="bg-white/60 hover:bg-white text-xs text-[#1B1625] px-2.5 py-1 rounded-lg border border-[#1B1625]/20 font-semibold"
+                  className="bg-white/5 hover:bg-white/10 text-xs text-white/80 px-2.5 py-1 rounded-lg border border-white/10 font-semibold cursor-pointer"
                 >
                   {phrase}
                 </button>
@@ -292,17 +292,17 @@ export default function MemeMachine() {
           {/* Step 3: Color and Mood */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div>
-              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-[#4c3d69] mb-3">
+              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-white/60 mb-3">
                 3. Text Color
               </span>
               <div className="flex gap-2">
-                {['#0B5BF0', '#E11D48', '#059669', '#1B1625', '#7C3AED'].map((color) => (
+                {['#FFB7C5', '#9945FF', '#14F195', '#E11D48', '#FFD700'].map((color) => (
                   <button
                     key={color}
                     onClick={() => setTextColor(color)}
                     style={{ backgroundColor: color }}
-                    className={`w-8 h-8 rounded-full border-2 border-[#1B1625] transition-all ${
-                      textColor === color ? 'scale-110 ring-2 ring-offset-1 ring-[#0B5BF0]' : 'opacity-80 hover:opacity-100'
+                    className={`w-8 h-8 rounded-full border border-white/10 transition-all cursor-pointer ${
+                      textColor === color ? 'scale-110 ring-2 ring-offset-2 ring-[#FFB7C5]' : 'opacity-80 hover:opacity-100'
                     }`}
                   />
                 ))}
@@ -310,7 +310,7 @@ export default function MemeMachine() {
             </div>
 
             <div>
-              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-[#4c3d69] mb-3">
+              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-white/60 mb-3">
                 4. Face Mood
               </span>
               <button
@@ -318,8 +318,10 @@ export default function MemeMachine() {
                   playMeow();
                   setIsHappy(!isHappy);
                 }}
-                className={`w-full py-1.5 px-3 rounded-xl border-2 font-bubble text-sm font-semibold flex items-center justify-center gap-2 transition-all bg-white border-[#1B1625] hover:bg-slate-50 ${
-                  isHappy ? 'bg-amber-100' : ''
+                className={`w-full py-1.5 px-3 rounded-xl border font-bubble text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                  isHappy 
+                    ? 'bg-[#FFB7C5]/20 text-[#FFB7C5] border-[#FFB7C5]/40' 
+                    : 'bg-white/5 text-white/80 border-white/10 hover:bg-white/10'
                 }`}
               >
                 <RefreshCw size={14} />
@@ -329,11 +331,11 @@ export default function MemeMachine() {
           </div>
         </div>
 
-        <div className="bg-white/40 border-2 border-dashed border-[#1B1625]/30 rounded-2xl p-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-[#0B5BF0]/10 flex items-center justify-center border border-[#0B5BF0]/20 text-[#0B5BF0] shrink-0 font-bold font-mono">
+        <div className="bg-white/5 border border-dashed border-white/10 rounded-2xl p-4 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-[#FFB7C5]/10 flex items-center justify-center border border-white/10 text-[#FFB7C5] shrink-0 font-bold font-mono">
             i
           </div>
-          <p className="text-xs text-[#4c3d69] leading-relaxed font-semibold">
+          <p className="text-xs text-white/60 leading-relaxed font-semibold">
             Did you know? Every SVG export is fully scalable and vector-based. It means your custom smol cat sticker is ready to be printed on hoodies, caps, or scaled up for billboard campaigns!
           </p>
         </div>

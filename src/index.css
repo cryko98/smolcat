@@ -1,79 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Comfortaa", "Fredoka", ui-sans-serif, system-ui, sans-serif;
-  --font-bubble: "Fredoka", "Comfortaa", sans-serif;
+  --font-sans: "Inter", "Fredoka", ui-sans-serif, system-ui, sans-serif;
+  --font-bubble: "Fredoka", "Inter", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer utilities {
-  /* Cute playful sticker shadows and outlines resembling the reference image */
+  /* High fidelity dark glassmorphic cards and glowing elements matching Immersive UI */
   .bubble-card {
-    background-color: #ffffff;
-    border: 6px solid #1B1625;
+    background-color: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
-    box-shadow: 8px 8px 0px 0px #1B1625;
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .bubble-card-purple {
-    background-color: #e4dbff;
-    border: 6px solid #1B1625;
+    background-color: rgba(153, 69, 255, 0.06);
+    backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(255, 183, 197, 0.2);
     border-radius: 24px;
-    box-shadow: 8px 8px 0px 0px #1B1625;
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 12px 36px 0 rgba(153, 69, 255, 0.1), inset 0 1px 0 0 rgba(255, 183, 197, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .bubble-card:hover, .bubble-card-purple:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0px 0px #1B1625;
+  .bubble-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 183, 197, 0.3);
+    box-shadow: 0 20px 40px -10px rgba(255, 183, 197, 0.12), 0 0 20px 0 rgba(255, 183, 197, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .bubble-card-purple:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 183, 197, 0.5);
+    box-shadow: 0 20px 40px -10px rgba(153, 69, 255, 0.2), 0 0 25px 0 rgba(255, 183, 197, 0.1), inset 0 1px 0 0 rgba(255, 183, 197, 0.2);
   }
 
   .bubble-btn {
-    border: 4px solid #1B1625;
-    border-radius: 16px;
-    box-shadow: 4px 4px 0px 0px #1B1625;
-    transition: all 0.1s ease;
+    border: 1px solid rgba(255, 183, 197, 0.4);
+    border-radius: 9999px;
+    box-shadow: 0 4px 14px 0 rgba(255, 183, 197, 0.15);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .bubble-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 5px 5px 0px 0px #1B1625;
+    transform: translateY(-2px);
+    border-color: rgba(255, 183, 197, 0.8);
+    box-shadow: 0 6px 20px 0 rgba(255, 183, 197, 0.3), 0 0 12px 0 rgba(153, 69, 255, 0.2);
   }
 
   .bubble-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px 0px #1B1625;
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px 0 rgba(255, 183, 197, 0.2);
   }
 
-  /* Text stroke for cute comic effect */
+  /* High fidelity neon typography replacements */
   .text-stroke-thick {
-    -webkit-text-stroke: 6px #1B1625;
-    paint-order: stroke fill;
+    color: #FFFFFF;
+    text-shadow: 0 0 20px rgba(255, 183, 197, 0.35);
   }
 
   .text-stroke-medium {
-    -webkit-text-stroke: 4px #1B1625;
-    paint-order: stroke fill;
+    color: #FFB7C5;
+    text-shadow: 0 0 15px rgba(153, 69, 255, 0.4);
   }
 
-  /* Custom animations */
+  /* Custom smooth floating animations */
   @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(2deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
   }
 
   .animate-float-slow {
-    animation: float 6s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite;
   }
 
   .animate-float-fast {
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
   }
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: #0A0A0A;
 }
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 183, 197, 0.4);
+}
+
 
