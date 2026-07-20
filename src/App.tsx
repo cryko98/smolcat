@@ -15,57 +15,49 @@ import {
   ShieldAlert, 
   ArrowUpRight, 
   Compass, 
-  Cat, 
-  Share2, 
-  Info,
-  ChevronRight
+  Flame, 
+  Sparkles,
+  ChevronRight,
+  TrendingUp,
+  Award
 } from 'lucide-react';
-import { playMeow, playPurr } from './lib/sound';
+import { playMoo, playSnort } from './lib/sound';
 import SmolCatIllustration from './components/SmolCatIllustration';
 import MemeMachine from './components/MemeMachine';
 import TrenchSaverGame from './components/TrenchSaverGame';
 
-function PawPrint({ className = '', size = 60, opacity = 0.25, rotate = 0 }) {
+function Sparkle({ className = '', size = 24, opacity = 0.25, rotate = 0 }) {
   return (
     <svg 
       width={size} 
       height={size} 
-      viewBox="0 0 100 100" 
-      fill="#9275f0" 
+      viewBox="0 0 24 24" 
+      fill="#FBBF24" 
       style={{ opacity, transform: `rotate(${rotate}deg)` }}
-      className={className}
+      className={`${className} transition-all duration-1000`}
     >
-      {/* Large bottom pad */}
-      <path d="M 50,55 C 32,55 28,78 35,88 C 42,98 58,98 65,88 C 72,78 68,55 50,55 Z" />
-      {/* Toe 1 (leftmost) */}
-      <ellipse cx="23" cy="42" rx="7" ry="10" transform="rotate(-30, 23, 42)" />
-      {/* Toe 2 */}
-      <ellipse cx="39" cy="26" rx="8" ry="12" transform="rotate(-10, 39, 26)" />
-      {/* Toe 3 */}
-      <ellipse cx="61" cy="26" rx="8" ry="12" transform="rotate(10, 61, 26)" />
-      {/* Toe 4 (rightmost) */}
-      <ellipse cx="77" cy="42" rx="7" ry="10" transform="rotate(30, 77, 42)" />
+      <path d="M12 2 L14.5 8.5 L21 11 L14.5 13.5 L12 20 L9.5 13.5 L3 11 L9.5 8.5 Z" />
     </svg>
   );
 }
 
 export default function App() {
   const [copied, setCopied] = useState(false);
-  const [petCount, setPetCount] = useState(() => {
+  const [snortCount, setSnortCount] = useState(() => {
     try {
-      return parseInt(localStorage.getItem('smolcat_pets') || '42', 10);
+      return parseInt(localStorage.getItem('bullothy_snorts') || '420', 10);
     } catch {
-      return 42;
+      return 420;
     }
   });
-  const [isPurring, setIsPurring] = useState(false);
+  const [isSnorting, setIsSnorting] = useState(false);
   const [showPeekCat, setShowPeekCat] = useState(false);
   const [peeksCount, setPeeksCount] = useState(0);
 
-  // Official SMOLCAT contract address updated on 2026-07-16
+  // Official BULLOTHY contract address
   const contractAddress = "TGTrnjkirTrmJwdrHZ9MRh4J46C8jFRMs3Ayyozpump";
 
-  // Watch scroll to show peeking cat
+  // Watch scroll to show peeking Bullothy
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 400) {
@@ -81,87 +73,70 @@ export default function App() {
   const handleCopyCA = () => {
     navigator.clipboard.writeText(contractAddress);
     setCopied(true);
-    playMeow();
+    playMoo();
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handlePetCat = () => {
-    playMeow();
-    setIsPurring(true);
-    const newCount = petCount + 1;
-    setPetCount(newCount);
+  const handlePetBull = () => {
+    playMoo();
+    setIsSnorting(true);
+    const newCount = snortCount + 1;
+    setSnortCount(newCount);
     try {
-      localStorage.setItem('smolcat_pets', newCount.toString());
+      localStorage.setItem('bullothy_snorts', newCount.toString());
     } catch {}
     
-    // Purr after meow
+    // Snort / grunt after moo
     setTimeout(() => {
-      playPurr();
+      playSnort();
       setTimeout(() => {
-        setIsPurring(false);
-      }, 800);
-    }, 450);
+        setIsSnorting(false);
+      }, 700);
+    }, 400);
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-[#1B1625] selection:text-white pb-12 text-white relative overflow-x-hidden bg-[#b19df7]">
-      {/* Background Atmosphere */}
+    <div className="min-h-screen flex flex-col font-sans selection:bg-amber-400 selection:text-black pb-12 text-white relative overflow-x-hidden bg-[#0A0A0D]">
+      
+      {/* Background Glow Atmosphere */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#9275f0] rounded-full blur-[160px] opacity-45"></div>
-        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#9945FF] rounded-full blur-[140px] opacity-35"></div>
+        <div className="absolute top-[-5%] left-[-10%] w-[650px] h-[650px] bg-amber-500/10 rounded-full blur-[180px] opacity-60"></div>
+        <div className="absolute bottom-[-5%] right-[-5%] w-[600px] h-[600px] bg-yellow-600/10 rounded-full blur-[150px] opacity-40"></div>
       </div>
 
-      {/* BACKGROUND SCATTERED PAW PRINTS MATCHING USER IMAGE */}
+      {/* BACKGROUND FLOATING GOLD STARS */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        {/* Row 1 */}
-        <div className="absolute top-[8%] left-[5%] animate-float-slow">
-          <PawPrint size={75} opacity={0.35} rotate={-15} />
+        <div className="absolute top-[8%] left-[6%] animate-pulse">
+          <Sparkle size={22} opacity={0.35} rotate={15} />
         </div>
-        <div className="absolute top-[12%] right-[10%] animate-float-fast">
-          <PawPrint size={65} opacity={0.3} rotate={25} />
+        <div className="absolute top-[15%] right-[12%] animate-bounce" style={{ animationDuration: '6s' }}>
+          <Sparkle size={28} opacity={0.4} rotate={45} />
         </div>
-
-        {/* Row 2 */}
-        <div className="absolute top-[32%] left-[12%] animate-float-fast">
-          <PawPrint size={55} opacity={0.25} rotate={10} />
+        <div className="absolute top-[35%] left-[10%] animate-pulse" style={{ animationDuration: '4s' }}>
+          <Sparkle size={18} opacity={0.25} rotate={-10} />
         </div>
-        <div className="absolute top-[28%] right-[4%] animate-float-slow">
-          <PawPrint size={80} opacity={0.35} rotate={-20} />
+        <div className="absolute top-[28%] right-[5%] animate-bounce" style={{ animationDuration: '8s' }}>
+          <Sparkle size={32} opacity={0.45} rotate={20} />
         </div>
-
-        {/* Row 3 */}
-        <div className="absolute top-[52%] left-[4%] animate-float-slow">
-          <PawPrint size={85} opacity={0.4} rotate={35} />
+        <div className="absolute top-[55%] left-[5%] animate-pulse" style={{ animationDuration: '5s' }}>
+          <Sparkle size={30} opacity={0.3} rotate={75} />
         </div>
-        <div className="absolute top-[58%] right-[14%] animate-float-fast">
-          <PawPrint size={60} opacity={0.25} rotate={-5} />
+        <div className="absolute top-[62%] right-[15%] animate-bounce" style={{ animationDuration: '7s' }}>
+          <Sparkle size={20} opacity={0.35} rotate={-25} />
         </div>
-
-        {/* Row 4 */}
-        <div className="absolute bottom-[22%] left-[8%] animate-float-fast">
-          <PawPrint size={70} opacity={0.35} rotate={-15} />
+        <div className="absolute bottom-[20%] left-[12%] animate-pulse" style={{ animationDuration: '6s' }}>
+          <Sparkle size={26} opacity={0.4} rotate={35} />
         </div>
-        <div className="absolute bottom-[18%] right-[6%] animate-float-slow">
-          <PawPrint size={90} opacity={0.3} rotate={40} />
-        </div>
-
-        {/* Floating sparkles */}
-        <div className="absolute top-[22%] right-[22%] animate-ping" style={{ animationDuration: '5s' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5">
-            <path d="M12 3v18M3 12h18" strokeLinecap="round" />
-          </svg>
-        </div>
-        <div className="absolute bottom-[38%] left-[28%] animate-ping" style={{ animationDuration: '7s' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5">
-            <path d="M12 3v18M3 12h18" strokeLinecap="round" />
-          </svg>
+        <div className="absolute bottom-[15%] right-[8%] animate-bounce" style={{ animationDuration: '5s' }}>
+          <Sparkle size={35} opacity={0.3} rotate={110} />
         </div>
       </div>
 
       {/* HEADER NAVBAR */}
-      <header className="sticky top-0 z-50 px-4 md:px-8 py-3 bg-[#110C16]/80 backdrop-blur-md border-b border-white/10">
+      <header className="sticky top-0 z-50 px-4 md:px-8 py-4 bg-[#0A0A0D]/90 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* Logo brand with smooth back-to-top scroll */}
+          
+          {/* Logo brand with smooth scroll */}
           <a 
             href="#hero" 
             onClick={(e) => {
@@ -169,49 +144,52 @@ export default function App() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
               window.history.pushState(null, '', '#hero');
             }}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3.5 group"
           >
-            <div className="w-10 h-10 rounded-full border border-white/20 overflow-hidden bg-white/5 flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-11 h-11 rounded-full border-2 border-amber-400 overflow-hidden bg-black flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
               <img 
-                src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/photo_2026-07-16_23-54-53.jpg?v=1784235310" 
-                alt="smol cat logo" 
+                src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/bullothy.jpg?v=1784583508" 
+                alt="Bullothy brand logo" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <span className="font-bubble font-bold text-lg md:text-xl text-[#F5F5F5] tracking-wide uppercase">
-              smol cat
-            </span>
+            <div className="flex flex-col">
+              <span className="font-sans font-black text-lg md:text-xl text-white tracking-tight uppercase leading-none">
+                BULLOTHY
+              </span>
+              <span className="font-mono text-[9px] text-amber-400 font-bold tracking-widest mt-0.5 uppercase">
+                $bullothy
+              </span>
+            </div>
           </a>
 
-          {/* Nav links */}
-          <nav className="hidden md:flex items-center gap-6 font-bubble font-bold text-xs tracking-wider uppercase text-white/80">
-            <a href="#about" className="hover:text-[#FFB7C5] transition-colors">Story</a>
-            <a href="#pet" className="hover:text-[#FFB7C5] transition-colors">Pet</a>
-            <a href="#memes" className="hover:text-[#FFB7C5] transition-colors">Sticker Lab</a>
-            <a href="#game" className="hover:text-[#FFB7C5] transition-colors">Trench Saver</a>
-            <a href="#buy" className="hover:text-[#FFB7C5] transition-colors">How To Buy</a>
+          {/* Navigation link deck */}
+          <nav className="hidden md:flex items-center gap-8 font-sans font-black text-xs tracking-widest uppercase text-white/80">
+            <a href="#about" className="hover:text-amber-400 transition-colors duration-200">The Story</a>
+            <a href="#pet" className="hover:text-amber-400 transition-colors duration-200">Pet Bullothy</a>
+            <a href="#memes" className="hover:text-amber-400 transition-colors duration-200">Stamp Maker</a>
+            <a href="#game" className="hover:text-amber-400 transition-colors duration-200">Arcade Run</a>
+            <a href="#buy" className="hover:text-amber-400 transition-colors duration-200">How To Buy</a>
           </nav>
 
-          {/* Social and sound widgets */}
-          <div className="flex items-center gap-2">
-            {/* Play Sound meow button */}
+          {/* Social connections and sound toggles */}
+          <div className="flex items-center gap-2.5">
             <button 
-              onClick={playMeow}
-              className="p-2 bg-white/5 rounded-full border border-white/10 text-white/80 hover:text-[#FFB7C5] hover:bg-white/10 transition-all active:translate-y-[1px]"
-              title="Click to Meow!"
+              onClick={playMoo}
+              className="p-2.5 bg-white/5 rounded-xl border border-white/10 text-white/80 hover:text-amber-400 hover:bg-amber-400/10 transition-all active:translate-y-[1px]"
+              title="Moo loudly!"
             >
               <Volume2 size={18} />
             </button>
 
-            {/* X.com / Twitter link */}
             <a 
-              href="https://x.com/smolcatfun" 
+              href="https://x.com/bullothyfun" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="p-2 bg-white/5 rounded-full border border-white/10 text-white/80 hover:text-[#FFB7C5] hover:bg-white/10 transition-all active:translate-y-[1px]"
+              className="p-2.5 bg-white/5 rounded-xl border border-white/10 text-white/80 hover:text-amber-400 hover:bg-amber-400/10 transition-all active:translate-y-[1px]"
+              title="Official X account"
             >
-              {/* Minimalist modern 2026 styled X logo */}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
@@ -219,200 +197,212 @@ export default function App() {
 
             <a 
               href="#buy"
-              className="px-5 py-2 rounded-full bg-[#FFB7C5] text-black hover:bg-white hover:text-black transition-all font-bubble font-bold text-xs md:text-sm tracking-wide"
+              className="px-5 py-2.5 rounded-xl bg-amber-400 text-black hover:bg-white transition-all font-sans font-black text-xs md:text-sm tracking-widest uppercase shadow-[0_4px_15px_rgba(245,158,11,0.25)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)]"
             >
-              BUY $smolcat
+              BUY NOW
             </a>
           </div>
         </div>
       </header>
 
-      {/* HERO SECTION */}
-      <section id="hero" className="relative px-4 md:px-8 pt-10 md:pt-16 pb-12 z-10 max-w-7xl mx-auto w-full">
+      {/* HERO SECTION - REWORKED WITH UNIQUE ASYMMETRICAL WEB3 LAYOUT */}
+      <section id="hero" className="relative px-4 md:px-8 pt-8 md:pt-16 pb-16 z-10 max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           
-          {/* Hero text */}
-          <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
-            {/* Ticker badge */}
+          {/* LEFT COLUMN: Prominent premium artwork presentation with glowing halos */}
+          <div className="lg:col-span-5 flex justify-center order-2 lg:order-1">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#9945FF] to-[#FFB7C5] text-white border border-white/10 rounded-full px-4 py-1.5 mx-auto lg:mx-0 w-fit mb-5 shadow-lg"
+              initial={{ opacity: 0, scale: 0.92, rotate: -1.5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+              className="bg-[#121217] border border-amber-500/30 p-5 rounded-[36px] w-full max-w-md relative shadow-[0_15px_40px_rgba(0,0,0,0.8)]"
             >
-              <Coins size={14} className="text-[#FFB7C5]" />
-              <span className="font-mono text-xs font-black tracking-wider uppercase">TRENCHES SAVED INDEX: 100%</span>
+              {/* Golden Badge overlay */}
+              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-sans font-black text-[10px] tracking-widest px-4 py-2 border border-black rounded-xl rotate-6 shadow-[0_4px_15px_rgba(245,158,11,0.4)] uppercase">
+                ORIGINAL BABY BULL
+              </div>
+
+              {/* Main portrait of Bullothy */}
+              <div className="border border-white/10 rounded-2xl overflow-hidden bg-[#0A0A0C] relative group shadow-inner">
+                <img 
+                  src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/bullothy.jpg?v=1784583508" 
+                  alt="Bullothy Portrait Artwork" 
+                  className="w-full h-auto transition-all duration-700 group-hover:scale-105 filter group-hover:brightness-110"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-white/5 text-center flex items-center justify-between">
+                <span className="font-mono text-[9px] font-black text-amber-400/60 tracking-wider uppercase">
+                  SOLANA CONTRACT CONFIRMED
+                </span>
+                <span className="font-mono text-[9px] font-bold text-white/40 uppercase">
+                  VERIFIED BY HEIDELBERG
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* RIGHT COLUMN: Modern high-contrast display text and interactive quick details */}
+          <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-1 lg:order-2">
+            
+            {/* Live stats badge */}
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className="inline-flex items-center gap-2.5 bg-amber-400/10 border border-amber-500/30 text-amber-400 rounded-full px-4 py-1.5 mx-auto lg:mx-0 w-fit mb-6 shadow-md"
+            >
+              <TrendingUp size={13} className="animate-pulse" />
+              <span className="font-mono text-[10px] font-black tracking-widest uppercase">THE NO-SPINE SOLANA REVOLUTION</span>
             </motion.div>
 
-            {/* Name title with cute drop outline text style */}
+            {/* Title with metallic golden styling and short spine reference */}
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="font-bubble text-6xl md:text-8xl font-black text-white text-stroke-thick tracking-tight mb-4"
+              transition={{ delay: 0.15 }}
+              className="font-sans text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-4 leading-none"
             >
-              smol cat<br/><span className="text-white text-stroke-thick">$smolcat</span>
+              Meet <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500">BULLOTHY</span>
             </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="font-sans text-lg md:text-xl font-normal text-white/70 max-w-2xl leading-relaxed mb-8"
+              transition={{ delay: 0.25 }}
+              className="font-sans text-base md:text-lg font-normal text-white/70 max-w-2xl leading-relaxed mb-8"
             >
-              The smolest cat in the universe is here to rescue the Solana trenches. No high market caps required — just infinite cuteness, an adorable blue sweater, and the mission to make every trader happy again. Always remember: we are <span className="underline decoration-4 decoration-[#FFB7C5] underline-offset-4 font-semibold text-white">smol</span> but we are mighty!
+              Bullothy is an extremely cute baby bull living with <span className="text-amber-400 font-bold">short spine syndrome</span>. Compact, round, and physically unbreakable, he stepped forward to conquer the people of Solana with pure cuteness, a solid golden nose ring, and unstoppable baby bull vibes. Remember: no spine means we are built closer to the ground, so we never fall down!
             </motion.p>
 
-            {/* CA Bar */}
+            {/* Contract Address Bar */}
             <motion.div 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bubble-card bg-white/5 border border-white/10 p-3 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-xl w-full mb-8"
+              transition={{ delay: 0.35 }}
+              className="bg-[#121217] border border-white/10 p-3 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-xl w-full mb-8 rounded-2xl shadow-lg"
             >
-              <div className="flex items-center gap-2 w-full overflow-hidden">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFB7C5]/70 bg-[#FFB7C5]/10 border border-[#FFB7C5]/20 rounded-lg px-2.5 py-1 shrink-0">
-                  CA:
+              <div className="flex items-center gap-2.5 w-full overflow-hidden">
+                <span className="font-mono text-[10px] font-black uppercase tracking-wider text-black bg-amber-400 rounded-lg px-2.5 py-1 shrink-0">
+                  SOL CA
                 </span>
-                <span className="font-mono text-sm font-bold text-white/95 truncate select-all w-full text-center sm:text-left">
+                <span className="font-mono text-xs md:text-sm font-bold text-white/90 truncate select-all w-full text-center sm:text-left px-1">
                   {contractAddress}
                 </span>
               </div>
               <button
                 onClick={handleCopyCA}
-                className="bubble-btn bg-[#FFB7C5] text-black hover:bg-white font-bubble font-bold text-xs py-2.5 px-5 flex items-center gap-2 shrink-0 w-full sm:w-auto justify-center cursor-pointer"
+                className="bg-amber-400 hover:bg-white text-black font-sans font-black text-xs py-2.5 px-6 rounded-xl flex items-center gap-2 shrink-0 w-full sm:w-auto justify-center cursor-pointer transition-all duration-150 active:translate-y-[1px]"
               >
                 {copied ? (
                   <>
-                    <Check size={14} className="text-emerald-800" />
-                    COPIED!
+                    <Check size={14} className="text-green-800" />
+                    COPIED MOO!
                   </>
                 ) : (
                   <>
                     <Copy size={14} />
-                    COPY
+                    COPY CA
                   </>
                 )}
               </button>
             </motion.div>
 
-            {/* Quick action buttons */}
+            {/* Quick Navigation Buttons */}
             <motion.div 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+              transition={{ delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-3.5 justify-center lg:justify-start"
             >
               <a 
                 href="#buy"
-                className="px-8 py-3.5 rounded-full bg-[#FFB7C5] hover:scale-105 transition-all text-black text-center font-bubble font-bold text-lg flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,183,197,0.3)]"
+                className="px-8 py-4 rounded-xl bg-amber-400 hover:scale-105 transition-all text-black text-center font-sans font-black text-base flex items-center justify-center gap-2 shadow-[0_6px_25px_rgba(245,158,11,0.3)]"
               >
-                BUY NOW
+                ACQUIRE $bullothy
                 <ArrowUpRight size={18} />
               </a>
               <a 
                 href="#memes"
-                className="px-8 py-3.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white hover:scale-105 transition-all text-center font-bubble font-bold text-lg flex items-center justify-center gap-2"
+                className="px-8 py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white hover:scale-105 transition-all text-center font-sans font-black text-base flex items-center justify-center gap-2"
               >
-                STICKER LAB
+                STAMP MAKER
                 <Compass size={18} />
               </a>
             </motion.div>
           </div>
 
-          {/* Hero Banner Image Graphic matching uploaded style */}
-          <div className="lg:col-span-5 flex justify-center">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
-              className="bubble-card-purple p-4 max-w-md w-full relative"
-            >
-              {/* Badge */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-[#9945FF] to-[#FFB7C5] text-white font-bubble font-bold text-xs px-3.5 py-1.5 border border-white/20 rounded-xl rotate-6 shadow-lg">
-                ORIGINAL CAT
-              </div>
-
-              {/* Main Banner Image provided by user */}
-              <div className="border border-white/10 rounded-xl overflow-hidden bg-[#121212] relative group">
-                <img 
-                  src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/photo_2026-07-16_23-54-53.jpg?v=1784235310" 
-                  alt="smol cat artwork" 
-                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-
-              <div className="mt-4 text-center">
-                <span className="font-mono text-[10px] font-bold text-white/40 tracking-wider uppercase">
-                  OFFICIAL ART WORK • ALL RIGHTS RESERVED BY CAT ARMY
-                </span>
-              </div>
-            </motion.div>
-          </div>
-
         </div>
       </section>
 
-      {/* STORY SECTION */}
-      <section id="about" className="px-4 md:px-8 py-12 max-w-7xl mx-auto w-full z-10">
-        <div className="bubble-card p-6 md:p-10">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="font-bubble text-3xl md:text-5xl font-black text-stroke-medium text-white tracking-tight mb-3">
-              THE LEGEND OF THE SMOL CAT
+      {/* THE LEGEND SECTION - OVERHAULED INTO A LUXURY WEB3 BENTO GRID */}
+      <section id="about" className="px-4 md:px-8 py-16 max-w-7xl mx-auto w-full z-10">
+        <div className="bg-[#121217] border border-white/5 p-6 md:p-12 rounded-[40px] shadow-2xl relative">
+          <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#F59E0B_1px,transparent_1px)] [background-size:24px_24px] rounded-[40px]"></div>
+          
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-amber-400 font-mono text-xs font-black bg-amber-400/10 border border-amber-500/20 rounded-full px-4 py-1 uppercase tracking-widest">
+              LEGENDARY SYNDROME
+            </span>
+            <h2 className="font-sans text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mt-3 mb-4 uppercase">
+              THE STORY OF BULLOTHY
             </h2>
-            <p className="text-sm font-bold text-[#FFB7C5]/90">
-              How a tiny kitten in a blue sweater was summoned to save everyone.
+            <p className="text-sm md:text-base font-bold text-white/60 leading-relaxed">
+              Living with a compressed short spine isn't a limitation — it's the ultimate meme superpower. Here is how our baby bull conquered the charts.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-12 gap-6">
             
-            {/* Story block 1 */}
-            <div className="bubble-card-purple p-5 flex flex-col justify-between">
+            {/* Bento block 1: The Short Spine Edge */}
+            <div className="md:col-span-5 bg-[#0A0A0C] border border-white/10 p-6 md:p-8 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:border-amber-400/30">
               <div>
-                <div className="w-8 h-8 rounded-full bg-[#FFB7C5] text-black flex items-center justify-center font-bubble font-bold text-sm mb-4 shadow-lg">
-                  1
+                <div className="w-10 h-10 rounded-xl bg-amber-400 text-black flex items-center justify-center font-sans font-black text-sm mb-6 shadow-md">
+                  01
                 </div>
-                <h3 className="font-bubble font-bold text-xl text-[#FFB7C5] mb-2">Dark Solana Trenches</h3>
-                <p className="text-xs text-white/70 leading-relaxed font-semibold">
-                  Solana trenches were dark and cold. High leverage, fast rugs, and red candles were everywhere. Traders were crying, looking at empty charts, wishing for a spark of joy.
+                <h3 className="font-sans font-black text-xl text-white mb-3 uppercase tracking-tight">SHORT SPINE, LOW GRAVITY</h3>
+                <p className="text-xs md:text-sm text-white/60 leading-relaxed font-semibold">
+                  Due to his compressed short spine, Bullothy is incredibly round, compact, and possesses a center of gravity so close to the ground that he is literally physically un-rugable. While ordinary bulls tumble over bear trends, Bullothy easily slides right under the pressure.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <span className="text-[10px] font-mono font-bold text-[#FFB7C5] uppercase">The Crisis</span>
+              <div className="mt-8 pt-4 border-t border-white/5 flex justify-between items-center text-amber-400">
+                <span className="text-[10px] font-mono font-black uppercase tracking-wider">PHYSICAL ADVANTAGE</span>
+                <Award size={16} />
               </div>
             </div>
 
-            {/* Story block 2 */}
-            <div className="bubble-card p-5 flex flex-col justify-between">
+            {/* Bento block 2: Golden Horn Power */}
+            <div className="md:col-span-7 bg-[#16161D] border border-amber-500/20 p-6 md:p-8 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:border-amber-400/30">
               <div>
-                <div className="w-8 h-8 rounded-full bg-[#9945FF] text-white flex items-center justify-center font-bubble font-bold text-sm mb-4 shadow-lg">
-                  2
+                <div className="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center font-sans font-black text-sm mb-6 shadow-md">
+                  02
                 </div>
-                <h3 className="font-bubble font-bold text-xl text-white mb-2">The Cozy Sweater Summon</h3>
-                <p className="text-xs text-white/70 leading-relaxed font-semibold">
-                  With a pure heart and zero malice, smol cat was born. No crazy armor, no lasers — just a cozy bright blue sweater that fits perfectly. He stepped forward to make every single trader smile again.
+                <h3 className="font-sans font-black text-xl text-amber-400 mb-3 uppercase tracking-tight">COGNITIVE CHARGE</h3>
+                <p className="text-xs md:text-sm text-white/70 leading-relaxed font-semibold">
+                  His horns are solid, mirror-polished gold. They point upward like vertical green candles on a premium Solana orderbook. Combined with his cozy, humble nature, his charge is legendary. Every "MOO!" from Bullothy summons green candles and sends shivers down the spine of short-selling paper hands.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <span className="text-[10px] font-mono font-bold text-[#9945FF] uppercase">The Savior</span>
+              <div className="mt-8 pt-4 border-t border-white/5 flex justify-between items-center text-white/80">
+                <span className="text-[10px] font-mono font-black uppercase tracking-wider">BULL RUN UTILITY</span>
+                <Flame size={16} className="text-amber-400 animate-pulse" />
               </div>
             </div>
 
-            {/* Story block 3 */}
-            <div className="bubble-card-purple p-5 flex flex-col justify-between">
-              <div>
-                <div className="w-8 h-8 rounded-full bg-[#FFB7C5] text-black flex items-center justify-center font-bubble font-bold text-sm mb-4 shadow-lg">
-                  3
+            {/* Bento block 3: Conquering the People */}
+            <div className="md:col-span-12 bg-[#0A0A0C] border border-white/10 p-6 md:p-8 rounded-3xl flex flex-col md:flex-row gap-6 justify-between items-center transition-all duration-300 hover:border-amber-400/30">
+              <div className="max-w-2xl">
+                <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-sans font-black text-sm mb-4 shadow-sm">
+                  03
                 </div>
-                <h3 className="font-bubble font-bold text-xl text-[#FFB7C5] mb-2">Infinite Green Candles</h3>
-                <p className="text-xs text-white/70 leading-relaxed font-semibold">
-                  By believing in cuteness and absolute community vibes, smol cat shields you from the big bad rugged world. Hold $smolcat and enjoy the comfy journey. Cuteness is the final utility!
+                <h3 className="font-sans font-black text-xl text-white mb-2 uppercase tracking-tight">CONQUERING SOLANA WITH LAUGHTER</h3>
+                <p className="text-xs md:text-sm text-white/60 leading-relaxed font-semibold">
+                  Bullothy is here to represent the ultimate community spirit. We don't care about elite financial institutions — we are a family of baby bulls with big smiles. Hold your $bullothy, generate cute stamps, protect the herd, and let our adorable low-riding champion charge towards the heavens.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <span className="text-[10px] font-mono font-bold text-[#FFB7C5] uppercase">The Vision</span>
+              <div className="w-full md:w-auto shrink-0 bg-white/5 border border-white/10 p-4 rounded-2xl text-center">
+                <span className="block text-[22px] font-sans font-black text-amber-400">100% SECURED</span>
+                <span className="block text-[8px] font-mono text-white/40 uppercase tracking-widest mt-1">HERD CONTRACT CONFIDENCE</span>
               </div>
             </div>
 
@@ -420,40 +410,44 @@ export default function App() {
         </div>
       </section>
 
-      {/* PET THE CAT INTERACTIVE MODULE */}
+      {/* INTERACTIVE PET CLICKER DASHBOARD - REWORKED SECTION */}
       <section id="pet" className="px-4 md:px-8 py-10 max-w-5xl mx-auto w-full z-10">
-        <div className="bubble-card p-6 md:p-8 grid md:grid-cols-12 gap-8 items-center">
-          
-          {/* Interactive Illustration */}
+        <div className="bg-[#121217] border border-white/10 rounded-[32px] p-6 md:p-10 grid md:grid-cols-12 gap-8 items-center relative">
+          <div className="absolute top-4 right-4 bg-amber-400/10 text-amber-400 font-mono text-[9px] px-2.5 py-1 rounded-lg font-black uppercase tracking-widest">
+            PET CLICKER v1.0
+          </div>
+
+          {/* Interactive Illustration Column */}
           <div className="md:col-span-5 flex flex-col items-center">
-            <div className="w-64 h-64 relative bg-white/5 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
+            <div className="w-64 h-64 relative bg-black border border-white/10 rounded-3xl overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.8)] flex items-center justify-center group">
+              
               {/* Vibe lines */}
-              <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#FFB7C5_3px,transparent_3px)] [background-size:24px_24px]"></div>
+              <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#F59E0B_3px,transparent_3px)] [background-size:24px_24px]"></div>
               
               <SmolCatIllustration 
-                isPurring={isPurring}
-                isHappy={isPurring}
-                onClick={handlePetCat}
-                className="w-56 h-56"
+                isPurring={isSnorting}
+                isHappy={isSnorting}
+                onClick={handlePetBull}
+                className="w-56 h-56 transition-transform duration-200 active:scale-95"
               />
 
-              {/* Float heart elements */}
+              {/* Float sparkles on pet */}
               <AnimatePresence>
-                {isPurring && (
+                {isSnorting && (
                   <>
                     <motion.div 
                       initial={{ y: 20, opacity: 0, scale: 0.5 }}
                       animate={{ y: -80, opacity: 1, scale: 1.2 }}
                       exit={{ opacity: 0 }}
-                      className="absolute left-10 text-rose-500"
+                      className="absolute left-10 text-amber-400"
                     >
-                      <Heart size={24} fill="currentColor" />
+                      <Sparkles size={24} fill="currentColor" />
                     </motion.div>
                     <motion.div 
                       initial={{ y: 20, opacity: 0, scale: 0.5 }}
                       animate={{ y: -90, opacity: 1, scale: 1.1 }}
                       exit={{ opacity: 0 }}
-                      className="absolute right-12 text-rose-500"
+                      className="absolute right-12 text-yellow-400"
                     >
                       <Heart size={18} fill="currentColor" />
                     </motion.div>
@@ -461,170 +455,176 @@ export default function App() {
                 )}
               </AnimatePresence>
             </div>
-            <span className="text-[10px] font-mono font-bold text-[#FFB7C5]/50 mt-2.5 tracking-wider uppercase">
-              CLICK OR TAP SMOL CAT TO PET HIM!
+            <span className="text-[10px] font-mono font-black text-amber-400/60 mt-3 tracking-widest uppercase">
+              CLICK OR TAP BULLOTHY TO MAKE HIM MOO!
             </span>
           </div>
 
           {/* Interactive statistics & Pet Clicker Controls */}
           <div className="md:col-span-7 text-center md:text-left flex flex-col justify-center">
-            <div className="flex items-center gap-2 justify-center md:justify-start mb-3">
-              <Cat className="text-[#FFB7C5]" size={24} />
-              <h3 className="font-bubble font-bold text-2xl text-white">PET THE COZY KITTEN</h3>
+            <div className="flex items-center gap-2.5 justify-center md:justify-start mb-4">
+              <Flame className="text-amber-400 animate-bounce" size={24} />
+              <h3 className="font-sans font-black text-2xl text-white uppercase tracking-tight">PET THE BABY CHAMPION</h3>
             </div>
             
-            <p className="text-sm text-white/70 mb-5 leading-relaxed font-semibold">
-              Smol cat loves when you pet him! Every tap plays an adorable synthetic meow, makes him purr with cozy low vibrations, and increases his happiness index. Help us reach a billion purrs!
+            <p className="text-xs md:text-sm text-white/70 mb-6 leading-relaxed font-semibold">
+              Tap Bullothy to trigger a funny synthesized low baby bull "MOO!" and snort. Every pet generates high-vibe energy in the Solana trenches and counts towards the global herd strength indicator!
             </p>
 
-            <div className="bubble-card-purple p-4 rounded-2xl flex items-center justify-between max-w-md mx-auto md:mx-0 w-full mb-5">
-              <span className="font-bubble font-bold text-sm text-white/90">
-                TOTAL TRENCHES SECURED:
+            <div className="bg-black border border-white/5 p-4.5 rounded-2xl flex items-center justify-between max-w-md mx-auto md:mx-0 w-full mb-6 shadow-inner">
+              <span className="font-sans font-black text-xs text-white/80 tracking-wider uppercase">
+                GLOBAL HERD SNORTS:
               </span>
-              <span className="font-mono text-xl font-black text-[#FFB7C5] bg-[#FFB7C5]/10 border border-[#FFB7C5]/30 px-3.5 py-1 rounded-xl shadow-md">
-                {petCount.toLocaleString()}
+              <span className="font-mono text-xl font-black text-amber-400 bg-amber-400/5 border border-amber-500/20 px-3.5 py-1 rounded-xl shadow-md">
+                {snortCount.toLocaleString()}
               </span>
             </div>
 
             <button
-              onClick={handlePetCat}
-              className="bubble-btn bg-[#FFB7C5] hover:bg-white text-black font-bubble text-lg font-bold py-3.5 px-8 w-full max-w-md cursor-pointer"
+              onClick={handlePetBull}
+              className="bg-amber-400 hover:bg-white text-black font-sans font-black text-sm tracking-widest py-4 px-8 rounded-2xl w-full max-w-md cursor-pointer transition-all duration-150 active:translate-y-[1px] shadow-[0_4px_15px_rgba(245,158,11,0.25)] uppercase"
             >
-              PET SMOL CAT NOW
+              PET BULLOTHY NOW
             </button>
           </div>
 
         </div>
       </section>
 
-      {/* MEME GENERATOR STUDIO */}
-      <section id="memes" className="px-4 md:px-8 py-12 max-w-7xl mx-auto w-full z-10">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-[#FFB7C5] font-mono text-xs font-bold bg-[#FFB7C5]/10 border border-[#FFB7C5]/30 rounded-full px-3.5 py-1 uppercase tracking-wider">
-            Sticker Lab v1.0
+      {/* STICKER STAMP STUDIO SECTION */}
+      <section id="memes" className="px-4 md:px-8 py-16 max-w-7xl mx-auto w-full z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-amber-400 font-mono text-xs font-black bg-amber-400/10 border border-amber-500/20 rounded-full px-4 py-1.5 uppercase tracking-widest">
+            STAMP LAB v1.0
           </span>
-          <h2 className="font-bubble text-3xl md:text-5xl font-black text-stroke-medium text-white tracking-tight mt-3 mb-2">
-            SMOL CAT MEME STUDIO
+          <h2 className="font-sans text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mt-3 mb-3 uppercase">
+            BULLOTHY MEME STUDIO
           </h2>
-          <p className="text-sm font-bold text-white/70">
-            Dress up smol cat with cool items, write your caption, and generate sticker memes for your socials!
+          <p className="text-xs md:text-sm font-semibold text-white/60 leading-relaxed">
+            Customize our low-riding champion with elite Web3 hats, custom text tags, and instantly export crisp vector stickers for your socials!
           </p>
         </div>
 
         <MemeMachine />
       </section>
 
-      {/* GAME SECTION */}
-      <section id="game" className="px-4 md:px-8 py-12 max-w-7xl mx-auto w-full z-10">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-[#9945FF] font-mono text-xs font-bold bg-[#9945FF]/15 border border-[#9945FF]/30 rounded-full px-3.5 py-1 uppercase tracking-wider">
-            Solana Protection
+      {/* ARCADE SECTION */}
+      <section id="game" className="px-4 md:px-8 py-16 max-w-7xl mx-auto w-full z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-amber-400 font-mono text-xs font-black bg-amber-400/10 border border-amber-500/20 rounded-full px-4 py-1.5 uppercase tracking-widest">
+            ARCADE GAME
           </span>
-          <h2 className="font-bubble text-3xl md:text-5xl font-black text-stroke-medium text-white tracking-tight mt-3 mb-2">
-            TRENCH SAVER ARCADE
+          <h2 className="font-sans text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mt-3 mb-3 uppercase">
+            BULLOTHY TRENCH RUN
           </h2>
-          <p className="text-sm font-bold text-white/70">
-            Guide smol cat through rugged lands. Jump over red candle dumps and rug pulls to save traders!
+          <p className="text-xs md:text-sm font-semibold text-white/60 leading-relaxed">
+            Put your reflexes to the test! Jump over dumpy red candlesticks and bear traps to secure the treasury and save traders.
           </p>
         </div>
 
         <TrenchSaverGame />
       </section>
 
-      {/* HOW TO BUY SECTION */}
-      <section id="buy" className="px-4 md:px-8 py-12 max-w-7xl mx-auto w-full z-10">
-        <div className="bubble-card p-6 md:p-10">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="font-bubble text-3xl md:text-5xl font-black text-stroke-medium text-white tracking-tight mb-3">
-              HOW TO ACQUIRE $smolcat
+      {/* HOW TO BUY SECTION - OVERHAULED STEP TIMELINE LAYOUT */}
+      <section id="buy" className="px-4 md:px-8 py-16 max-w-7xl mx-auto w-full z-10">
+        <div className="bg-[#121217] border border-white/5 p-6 md:p-12 rounded-[40px] shadow-2xl relative">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-amber-400 font-mono text-xs font-black bg-amber-400/10 border border-amber-500/20 rounded-full px-4 py-1 uppercase tracking-widest">
+              SWAP TUTORIAL
+            </span>
+            <h2 className="font-sans text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mt-3 mb-3 uppercase">
+              HOW TO ACQUIRE $bullothy
             </h2>
-            <p className="text-sm font-bold text-white/70">
-              Four simple, smol steps to join the cozy sweater army.
+            <p className="text-xs md:text-sm font-semibold text-white/60 leading-relaxed">
+              Four quick, bulletproof steps to connect your wallet and swap SOL for the low-riding baby bull.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            
             {/* Step 1 */}
-            <div className="bubble-card-purple p-5 flex flex-col justify-between">
+            <div className="bg-[#0A0A0C] border border-white/10 p-6 rounded-2xl flex flex-col justify-between transition-all duration-200 hover:border-amber-400/30">
               <div>
-                <span className="font-mono text-xs font-bold text-[#FFB7C5] uppercase block mb-1">
-                  STEP 01
+                <span className="font-mono text-xs font-black text-amber-400 uppercase block mb-1">
+                  PHASE 01
                 </span>
-                <h4 className="font-bubble font-bold text-lg text-white mb-2">Create Wallet</h4>
-                <p className="text-xs text-white/70 font-semibold leading-relaxed">
-                  Download a secure Solana browser extension wallet like Phantom, Solflare or Backpack. Set up your seed phrase safely.
+                <h4 className="font-sans font-black text-lg text-white mb-3 uppercase">SET UP WALLET</h4>
+                <p className="text-xs text-white/60 font-semibold leading-relaxed">
+                  Download a premium Solana extension wallet like Phantom, Solflare, or Backpack to your browser or mobile device. Save your seed phrase offline!
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <ChevronRight className="text-[#FFB7C5]" size={16} />
+              <div className="mt-6 pt-3 border-t border-white/5 flex justify-end">
+                <ChevronRight className="text-amber-400" size={16} />
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="bubble-card p-5 flex flex-col justify-between">
+            <div className="bg-[#0A0A0C] border border-white/10 p-6 rounded-2xl flex flex-col justify-between transition-all duration-200 hover:border-amber-400/30">
               <div>
-                <span className="font-mono text-xs font-bold text-[#9945FF] uppercase block mb-1">
-                  STEP 02
+                <span className="font-mono text-xs font-black text-amber-400 uppercase block mb-1">
+                  PHASE 02
                 </span>
-                <h4 className="font-bubble font-bold text-lg text-white mb-2">Get some SOL</h4>
-                <p className="text-xs text-white/70 font-semibold leading-relaxed">
-                  Purchase SOL on any major exchange and send it to your newly created Solana wallet address. Always keep some SOL for gas!
+                <h4 className="font-sans font-black text-lg text-white mb-3 uppercase">GET SOLANA (SOL)</h4>
+                <p className="text-xs text-white/60 font-semibold leading-relaxed">
+                  Buy SOL on a centralized exchange (Coinbase, Binance, etc.) or bridge it, and send it over to your newly created Solana wallet address.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <ChevronRight className="text-[#9945FF]" size={16} />
+              <div className="mt-6 pt-3 border-t border-white/5 flex justify-end">
+                <ChevronRight className="text-amber-400" size={16} />
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="bubble-card-purple p-5 flex flex-col justify-between">
+            <div className="bg-[#0A0A0C] border border-white/10 p-6 rounded-2xl flex flex-col justify-between transition-all duration-200 hover:border-amber-400/30">
               <div>
-                <span className="font-mono text-xs font-bold text-[#FFB7C5] uppercase block mb-1">
-                  STEP 03
+                <span className="font-mono text-xs font-black text-amber-400 uppercase block mb-1">
+                  PHASE 03
                 </span>
-                <h4 className="font-bubble font-bold text-lg text-white mb-2">Go to Jupiter</h4>
-                <p className="text-xs text-white/70 font-semibold leading-relaxed">
-                  Visit jup.ag or raydium.io on your browser. Connect your wallet, paste the official $smolcat Contract Address.
+                <h4 className="font-sans font-black text-lg text-white mb-3 uppercase">CONNECT TO JUPITER</h4>
+                <p className="text-xs text-white/60 font-semibold leading-relaxed">
+                  Go to jup.ag (Jupiter) or raydium.io. Connect your wallet extension, and paste our official $bullothy Contract Address into the token search.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <ChevronRight className="text-[#FFB7C5]" size={16} />
+              <div className="mt-6 pt-3 border-t border-white/5 flex justify-end">
+                <ChevronRight className="text-amber-400" size={16} />
               </div>
             </div>
 
             {/* Step 4 */}
-            <div className="bubble-card p-5 flex flex-col justify-between">
+            <div className="bg-[#0A0A0C] border border-white/10 p-6 rounded-2xl flex flex-col justify-between transition-all duration-200 hover:border-amber-400/30">
               <div>
-                <span className="font-mono text-xs font-bold text-[#9945FF] uppercase block mb-1">
-                  STEP 04
+                <span className="font-mono text-xs font-black text-amber-400 uppercase block mb-1">
+                  PHASE 04
                 </span>
-                <h4 className="font-bubble font-bold text-lg text-white mb-2">Swap for $smolcat</h4>
-                <p className="text-xs text-white/70 font-semibold leading-relaxed">
-                  Swap your SOL for $smolcat. Put on your cozy blue sweater, sit back, relax, and watch the trenches get saved!
+                <h4 className="font-sans font-black text-lg text-white mb-3 uppercase">SWAP SOL FOR BABY</h4>
+                <p className="text-xs text-white/60 font-semibold leading-relaxed">
+                  Decide on your size, set slip to auto, click swap, and confirm! Congratulations, you are now an official member of the compact Bullothy herd!
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
-                <Check className="text-emerald-500" size={16} />
+              <div className="mt-6 pt-3 border-t border-white/5 flex justify-end">
+                <Check className="text-emerald-400 animate-pulse" size={16} />
               </div>
             </div>
+
           </div>
 
           {/* Dex links badges row */}
-          <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap justify-center gap-4">
+          <div className="mt-12 pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4">
             <a 
               href="https://jup.ag" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bubble-btn bg-[#FFB7C5]/10 text-[#FFB7C5] border border-[#FFB7C5]/30 hover:bg-[#FFB7C5]/20 hover:text-white font-bubble font-bold text-xs py-2.5 px-5 flex items-center gap-2 cursor-pointer"
+              className="bg-amber-400/10 text-amber-400 border border-amber-500/20 hover:bg-amber-400 hover:text-black font-sans font-black text-xs py-3 px-6 rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-150"
             >
-              Jupiter Aggregator
+              Jupiter Swap
               <ExternalLink size={12} />
             </a>
             <a 
               href="https://raydium.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bubble-btn bg-[#9945FF]/10 text-[#9945FF] border border-[#9945FF]/30 hover:bg-[#9945FF]/20 hover:text-white font-bubble font-bold text-xs py-2.5 px-5 flex items-center gap-2 cursor-pointer"
+              className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 hover:bg-yellow-400 hover:text-black font-sans font-black text-xs py-3 px-6 rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-150"
             >
               Raydium DEX
               <ExternalLink size={12} />
@@ -633,33 +633,33 @@ export default function App() {
               href="https://dexscreener.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bubble-btn bg-white/5 border border-white/10 text-white/80 hover:bg-white/15 hover:text-white font-bubble font-bold text-xs py-2.5 px-5 flex items-center gap-2 cursor-pointer"
+              className="bg-white/5 border border-white/10 text-white/80 hover:bg-white/15 hover:text-white font-sans font-black text-xs py-3 px-6 rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-150"
             >
-              DEXScreener Live Charts
+              DEXScreener Chart
               <ExternalLink size={12} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* WARNING NOTIFICATION AREA */}
+      {/* SECURITY NOTICE - NO-LARPING DESIGN */}
       <section className="px-4 md:px-8 max-w-4xl mx-auto w-full z-10">
-        <div className="bg-[#110C16] border border-dashed border-rose-500/50 rounded-3xl p-5 flex flex-col sm:flex-row items-center gap-4 text-white">
-          <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center shrink-0">
+        <div className="bg-[#121217] border border-dashed border-amber-500/30 rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-4 text-white shadow-xl">
+          <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
             <ShieldAlert size={24} />
           </div>
           <div>
-            <span className="font-mono text-xs font-bold text-rose-400 block mb-1 uppercase tracking-wider">
-              SMOL DISCLAIMER: COZY VIBES INCLUDED
+            <span className="font-mono text-xs font-black text-amber-400 block mb-1 uppercase tracking-widest">
+              MEMECOIN DISCLAIMER
             </span>
-            <p className="text-xs text-white/80 leading-relaxed font-semibold">
-              $smolcat is a pure memecoin designed for lighthearted fun, community laughter, and customization stickers. It has absolutely no direct association with standard financial instruments. Always make sure to trade responsibly in the volatile Solana trenches. Always consult your inner kitten before swapping!
+            <p className="text-xs text-white/70 leading-relaxed font-semibold">
+              $bullothy is an online memecoin created purely for community humor, cute custom sticker builders, and lighthearted gaming. It has no associated utility or direct financial expectations. Memecoin trades are highly volatile; please secure your positions responsibly.
             </p>
           </div>
         </div>
       </section>
 
-      {/* SNEAKY PEEKING CAT COMPONENT */}
+      {/* SNEAKY PEEKING BULLOTHY COMPONENT */}
       <AnimatePresence>
         {showPeekCat && (
           <motion.div
@@ -669,12 +669,12 @@ export default function App() {
             whileHover={{ y: -5 }}
             className="fixed bottom-0 right-4 z-40 w-28 h-28 md:w-32 md:h-32 cursor-pointer select-none"
             onClick={() => {
-              playMeow();
+              playMoo();
               setPeeksCount(prev => prev + 1);
             }}
           >
-            <div className="absolute -top-12 right-2 bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-xl font-bubble text-[11px] text-[#FFB7C5] font-bold shadow-md whitespace-nowrap">
-              {peeksCount === 0 ? "meow!" : peeksCount < 5 ? "pet me!" : "purrrrr!"}
+            <div className="absolute -top-12 right-2 bg-black/95 backdrop-blur-md border border-amber-500/30 px-3 py-1.5 rounded-xl font-sans text-[10px] text-amber-400 font-black tracking-widest shadow-lg whitespace-nowrap uppercase">
+              {peeksCount === 0 ? "moo!" : peeksCount < 5 ? "pet me!" : "snooort!"}
             </div>
             <SmolCatIllustration isHappy={peeksCount > 4} isPurring={peeksCount > 2} />
           </motion.div>
@@ -682,30 +682,30 @@ export default function App() {
       </AnimatePresence>
 
       {/* FOOTER */}
-      <footer className="mt-16 pt-8 border-t border-white/10 max-w-7xl mx-auto w-full px-4 md:px-8 text-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-full border border-white/10 overflow-hidden bg-white/5 flex items-center justify-center shadow-sm">
+      <footer className="mt-20 pt-10 border-t border-white/5 max-w-7xl mx-auto w-full px-4 md:px-8 text-center">
+        <div className="flex flex-col items-center gap-5">
+          <div className="w-14 h-14 rounded-full border-2 border-amber-400 overflow-hidden bg-black flex items-center justify-center shadow-lg">
             <img 
-              src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/photo_2026-07-16_23-54-53.jpg?v=1784235310" 
-              alt="smol cat footer logo" 
+              src="https://cdn.shopify.com/s/files/1/0967/8087/8151/files/bullothy.jpg?v=1784583508" 
+              alt="Bullothy footer brand logo" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
           </div>
-          <h3 className="font-bubble font-bold text-xl text-[#FFB7C5] uppercase">smol cat</h3>
+          <h3 className="font-sans font-black text-2xl text-white tracking-tight uppercase">BULLOTHY</h3>
           
-          <div className="flex items-center gap-4 text-xs font-mono font-bold text-white/40">
-            <a href="#about" className="hover:text-[#FFB7C5] transition-colors">Story</a>
+          <div className="flex items-center gap-6 text-xs font-sans font-black uppercase tracking-widest text-white/40">
+            <a href="#about" className="hover:text-amber-400 transition-colors duration-200">Story</a>
             <span>•</span>
-            <a href="#pet" className="hover:text-[#FFB7C5] transition-colors">Pet</a>
+            <a href="#pet" className="hover:text-amber-400 transition-colors duration-200">Pet</a>
             <span>•</span>
-            <a href="#memes" className="hover:text-[#FFB7C5] transition-colors">Stickers</a>
+            <a href="#memes" className="hover:text-amber-400 transition-colors duration-200">Stamps</a>
             <span>•</span>
-            <a href="#game" className="hover:text-[#FFB7C5] transition-colors">Arcade</a>
+            <a href="#game" className="hover:text-amber-400 transition-colors duration-200">Arcade</a>
           </div>
 
-          <p className="text-[10px] font-mono text-white/30 font-bold mt-4">
-            © 2026 smol cat army. Built with absolute love for the Solana community. Always keep your sweater blue!
+          <p className="text-[10px] font-mono text-white/30 font-bold mt-4 leading-relaxed max-w-md">
+            © 2026 Bullothy Herd. Conquering the Solana charts one step closer to the ground. Horns up, spines short!
           </p>
         </div>
       </footer>

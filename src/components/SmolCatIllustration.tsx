@@ -22,19 +22,19 @@ export default function SmolCatIllustration({
   onClick,
 }: SmolCatIllustrationProps) {
   
-  // Custom wiggle vibration for purring
+  // Custom wiggle vibration for "purring" / snorting
   const wiggleTransition = isPurring
     ? {
         x: {
           type: "spring",
-          stiffness: 1000,
+          stiffness: 1100,
           damping: 2,
           repeat: Infinity,
           duration: 0.1,
         },
         y: {
           type: "spring",
-          stiffness: 1000,
+          stiffness: 1100,
           damping: 2,
           repeat: Infinity,
           duration: 0.1,
@@ -44,8 +44,8 @@ export default function SmolCatIllustration({
 
   const wiggleAnimate = isPurring
     ? {
-        x: [0, -1, 1, -1, 0],
-        y: [0, 1, -1, 1, 0],
+        x: [0, -1.5, 1.5, -1.5, 0],
+        y: [0, 1.5, -1.5, 1.5, 0],
       }
     : undefined;
 
@@ -60,177 +60,187 @@ export default function SmolCatIllustration({
         xmlns="http://www.w3.org/2000/svg"
         animate={wiggleAnimate}
         transition={wiggleTransition}
-        className="w-full h-full drop-shadow-[0_8px_16px_rgba(27,22,37,0.15)]"
+        className="w-full h-full drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)]"
       >
-        {/* Shadow under the cat */}
-        <ellipse cx="200" cy="370" rx="100" ry="12" fill="#E4DBFF" />
+        {/* Shadow under Bullothy */}
+        <ellipse cx="200" cy="375" rx="110" ry="14" fill="#000000" fillOpacity="0.45" />
 
-        {/* CAT TAIL */}
+        {/* GOLD ACCENT RADIANCE GLOW (ONLY WHEN HAPPY / PURRING) */}
+        {(isHappy || isPurring) && (
+          <motion.circle 
+            cx="200" 
+            cy="210" 
+            r="160" 
+            fill="#FBBF24" 
+            fillOpacity="0.08" 
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        )}
+
+        {/* BULL TAIL (CHUBBY, COMPACT, SHORT SPINE STYLE) */}
         <path
-          d="M 120 320 C 70 300, 60 220, 80 200 C 95 185, 110 210, 100 230 C 90 250, 100 290, 140 310"
-          stroke="#1B1625"
-          strokeWidth="10"
+          d="M 110 320 C 80 320, 60 290, 70 260 C 72 250, 85 250, 85 262 C 80 280, 92 295, 110 295"
+          stroke="#1E1B18"
+          strokeWidth="8"
           strokeLinecap="round"
-          fill="#3D3B40"
+          fill="none"
         />
+        {/* Golden tail tuft */}
+        <circle cx="68" cy="260" r="10" fill="#FBBF24" stroke="#000000" strokeWidth="3" />
 
-        {/* BACK LEGS & FEET */}
-        {/* Left foot */}
-        <rect x="150" y="340" width="45" height="25" rx="12" fill="#3D3B40" stroke="#1B1625" strokeWidth="8" />
-        {/* Right foot */}
-        <rect x="215" y="340" width="45" height="25" rx="12" fill="#3D3B40" stroke="#1B1625" strokeWidth="8" />
+        {/* STUBBY FEET WITH GOLD HOOVES (CHUBBY BABY BULL STYLE) */}
+        {/* Left Foot */}
+        <g>
+          <rect x="135" y="325" width="45" height="42" rx="10" fill="#1E1B18" stroke="#000000" strokeWidth="7" />
+          {/* Gold Hoof bottom */}
+          <path d="M 135 352 Q 157.5 348 180 352 L 180 367 L 135 367 Z" fill="#FBBF24" stroke="#000000" strokeWidth="4" />
+        </g>
+        {/* Right Foot */}
+        <g>
+          <rect x="220" y="325" width="45" height="42" rx="10" fill="#1E1B18" stroke="#000000" strokeWidth="7" />
+          {/* Gold Hoof bottom */}
+          <path d="M 220 352 Q 242.5 348 265 352 L 265 367 L 220 367 Z" fill="#FBBF24" stroke="#000000" strokeWidth="4" />
+        </g>
 
-        {/* SWEATER BODY */}
-        <motion.path
-          d="M 115 315 C 110 220, 290 220, 285 315 C 280 355, 120 355, 115 315 Z"
-          fill="#0B5BF0"
-          stroke="#1B1625"
+        {/* COMPRESSED SHORT-SPINE BODY (RESTS DIRECTLY BELOW HEAD) */}
+        <path
+          d="M 105 315 C 100 240, 300 240, 295 315 C 290 345, 110 345, 105 315 Z"
+          fill="#111115"
+          stroke="#000000"
           strokeWidth="8"
           strokeLinejoin="round"
         />
+        {/* Gold medallion neck chain for Web3 flex */}
+        <path d="M 140 255 Q 200 290 260 255" stroke="#FBBF24" strokeWidth="7" fill="none" strokeLinecap="round" />
+        <circle cx="200" cy="282" r="14" fill="#FBBF24" stroke="#000000" strokeWidth="4" />
+        {/* Medallion engraving: "$" */}
+        <text x="200" y="287" fontFamily="monospace" fontWeight="900" fontSize="15" fill="#000000" textAnchor="middle">$</text>
 
-        {/* Sleeves / Arms detail */}
-        {/* Left sleeve lines */}
-        <path
-          d="M 130 270 C 135 300, 135 320, 135 325"
-          stroke="#1B1625"
-          strokeWidth="6"
-          strokeLinecap="round"
-        />
-        {/* Left paw cap */}
-        <path
-          d="M 125 325 C 125 330, 145 330, 145 325"
-          stroke="#1B1625"
-          strokeWidth="6"
-          strokeLinecap="round"
-          fill="#3D3B40"
-        />
+        {/* SHINY GOLDEN HORNS (CURVED, CUTE BUT POWERFUL) */}
+        {/* Left Horn */}
+        <g>
+          <path
+            d="M 135 150 C 110 110, 80 110, 60 125 C 80 145, 105 165, 122 172"
+            fill="#FBBF24"
+            stroke="#000000"
+            strokeWidth="7"
+            strokeLinejoin="round"
+          />
+          {/* Horn ring accents */}
+          <path d="M 105 137 Q 95 145 102 153" stroke="#000000" strokeWidth="3" fill="none" />
+        </g>
+        {/* Right Horn */}
+        <g>
+          <path
+            d="M 265 150 C 290 110, 320 110, 340 125 C 320 145, 295 165, 278 172"
+            fill="#FBBF24"
+            stroke="#000000"
+            strokeWidth="7"
+            strokeLinejoin="round"
+          />
+          {/* Horn ring accents */}
+          <path d="M 295 137 Q 305 145 298 153" stroke="#000000" strokeWidth="3" fill="none" />
+        </g>
 
-        {/* Right sleeve lines */}
-        <path
-          d="M 270 270 C 265 300, 265 320, 265 325"
-          stroke="#1B1625"
-          strokeWidth="6"
-          strokeLinecap="round"
-        />
-        {/* Right paw cap */}
-        <path
-          d="M 255 325 C 255 330, 275 330, 275 325"
-          stroke="#1B1625"
-          strokeWidth="6"
-          strokeLinecap="round"
-          fill="#3D3B40"
-        />
-
-        {/* HEAD AND FACE GROUP - Moved down to sit snugly on the body */}
-        <g transform="translate(0, 22)">
-          {/* CAT HEAD */}
-          <motion.path
-            d="M 120 180 C 115 90, 285 90, 280 180 C 275 230, 125 230, 120 180 Z"
-            fill="#3D3B40"
-            stroke="#1B1625"
+        {/* HEAD AND FACE (CHUBBY CUTE BABY BULL) */}
+        <g transform="translate(0, 15)">
+          {/* BIG HEAD */}
+          <path
+            d="M 115 190 C 110 100, 290 100, 285 190 C 280 245, 120 245, 115 190 Z"
+            fill="#1E1B18"
+            stroke="#000000"
             strokeWidth="8"
             strokeLinejoin="round"
           />
 
-          {/* EARS */}
+          {/* FLOPPY CUTE EARS */}
           {/* Left Ear */}
           <path
-            d="M 125 125 L 120 60 C 120 50, 135 55, 145 70 L 165 105"
-            fill="#3D3B40"
-            stroke="#1B1625"
-            strokeWidth="8"
+            d="M 120 160 C 80 150, 70 185, 95 195 Z"
+            fill="#111115"
+            stroke="#000000"
+            strokeWidth="6"
             strokeLinejoin="round"
           />
-          <path
-            d="M 131 115 L 128 75 C 128 70, 137 73, 143 81 L 155 103"
-            fill="#FFB4B4"
-            stroke="#1B1625"
-            strokeWidth="4"
-            strokeLinejoin="round"
-          />
+          <path d="M 110 168 C 85 162, 80 180, 95 186" fill="#F9A8D4" opacity="0.75" />
 
           {/* Right Ear */}
           <path
-            d="M 275 125 L 280 60 C 280 50, 265 55, 255 70 L 235 105"
-            fill="#3D3B40"
-            stroke="#1B1625"
-            strokeWidth="8"
+            d="M 280 160 C 320 150, 330 185, 305 195 Z"
+            fill="#111115"
+            stroke="#000000"
+            strokeWidth="6"
             strokeLinejoin="round"
           />
-          <path
-            d="M 269 115 L 272 75 C 272 70, 263 73, 257 81 L 245 103"
-            fill="#FFB4B4"
-            stroke="#1B1625"
-            strokeWidth="4"
-            strokeLinejoin="round"
-          />
-
-          {/* CAT WHISKERS */}
-          {/* Left whiskers */}
-          <path d="M 115 170 L 80 165" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
-          <path d="M 110 180 L 75 180" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
-          <path d="M 115 190 L 80 195" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
-
-          {/* Right whiskers */}
-          <path d="M 285 170 L 320 165" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
-          <path d="M 290 180 L 325 180" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
-          <path d="M 285 190 L 320 195" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
+          <path d="M 290 168 C 315 162, 320 180, 305 186" fill="#F9A8D4" opacity="0.75" />
 
           {/* BLUSH CHEEKS */}
-          <ellipse cx="150" cy="190" rx="12" ry="7" fill="#FF9E9E" fillOpacity="0.6" />
-          <ellipse cx="250" cy="190" rx="12" ry="7" fill="#FF9E9E" fillOpacity="0.6" />
+          <ellipse cx="145" cy="205" rx="14" ry="8" fill="#EF4444" fillOpacity="0.45" />
+          <ellipse cx="255" cy="205" rx="14" ry="8" fill="#EF4444" fillOpacity="0.45" />
 
-          {/* CAT EYES */}
+          {/* BULLOTHY'S ADORABLE EYES */}
           {isHappy ? (
             <>
-              {/* Left Eye (Happy Curve) */}
+              {/* Left Eye (Happy arc blink) */}
               <path
-                d="M 135 175 Q 155 155 175 175"
-                stroke="#1B1625"
-                strokeWidth="10"
+                d="M 130 188 Q 152 165 174 188"
+                stroke="#000000"
+                strokeWidth="9"
                 strokeLinecap="round"
                 fill="none"
               />
-              {/* Right Eye (Happy Curve) */}
+              {/* Right Eye (Happy arc blink) */}
               <path
-                d="M 225 175 Q 245 155 265 175"
-                stroke="#1B1625"
-                strokeWidth="10"
+                d="M 226 188 Q 248 165 270 188"
+                stroke="#000000"
+                strokeWidth="9"
                 strokeLinecap="round"
                 fill="none"
               />
             </>
           ) : (
             <>
-              {/* Left Eye */}
-              <circle cx="155" cy="170" r="26" fill="#1B1625" />
-              {/* Highlights */}
-              <circle cx="163" cy="160" r="10" fill="white" />
-              <circle cx="147" cy="178" r="4" fill="white" />
+              {/* Left Cute Big Eye */}
+              <circle cx="152" cy="182" r="25" fill="#000000" />
+              {/* Star/Bubble Highlights */}
+              <circle cx="160" cy="172" r="10" fill="#FFFFFF" />
+              <circle cx="142" cy="190" r="5" fill="#FFFFFF" />
+              <circle cx="160" cy="192" r="2.5" fill="#FFFFFF" />
 
-              {/* Right Eye */}
-              <circle cx="245" cy="170" r="26" fill="#1B1625" />
-              {/* Highlights */}
-              <circle cx="253" cy="160" r="10" fill="white" />
-              <circle cx="237" cy="178" r="4" fill="white" />
+              {/* Right Cute Big Eye */}
+              <circle cx="248" cy="182" r="25" fill="#000000" />
+              {/* Star/Bubble Highlights */}
+              <circle cx="256" cy="172" r="10" fill="#FFFFFF" />
+              <circle cx="238" cy="190" r="5" fill="#FFFFFF" />
+              <circle cx="256" cy="192" r="2.5" fill="#FFFFFF" />
             </>
           )}
 
-          {/* NOSE */}
-          <path
-            d="M 195 185 L 205 185 L 200 191 Z"
-            fill="#FF9E9E"
-            stroke="#1B1625"
-            strokeWidth="4"
-            strokeLinejoin="round"
+          {/* GOLD CUTE BULL SNOUT / MUZZLE */}
+          <ellipse cx="200" cy="216" rx="42" ry="26" fill="#F59E0B" stroke="#000000" strokeWidth="6" />
+
+          {/* NOSTRILES */}
+          <ellipse cx="188" cy="210" rx="4" ry="6" fill="#000000" />
+          <ellipse cx="212" cy="210" rx="4" ry="6" fill="#000000" />
+
+          {/* SHINY GOLDEN NOSE RING (THE ABSOLUTE SYMBOL OF BULLOTHY) */}
+          <motion.circle 
+            cx="200" 
+            cy="234" 
+            r="15" 
+            fill="none" 
+            stroke="#FBBF24" 
+            strokeWidth="5.5" 
+            animate={isPurring ? { rotate: [0, -10, 10, -10, 0] } : undefined}
+            transition={{ duration: 0.5, repeat: Infinity }}
           />
 
-          {/* MOUTH */}
+          {/* CUTE MOUTH UNDER SNOUT */}
           <path
-            d="M 190 194 Q 197 201 200 196 Q 203 201 210 194"
-            stroke="#1B1625"
-            strokeWidth="5"
+            d="M 188 222 Q 200 232 212 222"
+            stroke="#000000"
+            strokeWidth="4"
             strokeLinecap="round"
             fill="none"
           />
@@ -240,18 +250,18 @@ export default function SmolCatIllustration({
             <motion.g
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 12 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 12 }}
             >
-              {/* Dark cool pixel sunglasses */}
+              {/* Dark cool golden-rimmed pixel sunglasses */}
               <path
-                d="M 120 155 L 280 155 L 280 178 L 260 178 L 260 167 L 230 167 L 230 178 L 200 178 L 170 178 L 170 167 L 140 167 L 140 178 L 120 178 Z"
-                fill="#1B1625"
-                stroke="white"
+                d="M 115 168 L 285 168 L 285 192 L 265 192 L 265 180 L 235 180 L 235 192 L 200 192 L 165 192 L 165 180 L 135 180 L 135 192 L 115 192 Z"
+                fill="#111115"
+                stroke="#FBBF24"
                 strokeWidth="4"
               />
-              {/* Glossy lens effects */}
-              <rect x="130" y="160" width="8" height="8" fill="#0B5BF0" />
-              <rect x="240" y="160" width="8" height="8" fill="#0B5BF0" />
+              {/* Gold lens shine */}
+              <rect x="125" y="174" width="10" height="10" fill="#F59E0B" />
+              <rect x="245" y="174" width="10" height="10" fill="#F59E0B" />
             </motion.g>
           )}
 
@@ -259,22 +269,22 @@ export default function SmolCatIllustration({
             <motion.g
               initial={{ scale: 0, rotate: -20 }}
               animate={{ scale: 1, rotate: 0 }}
-              transformTemplate={({ scale, rotate }) => `translate(200, 75) scale(${scale}) rotate(${rotate}) translate(-200, -75)`}
+              transformTemplate={({ scale, rotate }) => `translate(200, 100) scale(${scale}) rotate(${rotate}) translate(-200, -100)`}
               transition={{ type: 'spring', stiffness: 150, damping: 10 }}
             >
-              {/* Colorful striped birthday cone */}
+              {/* Gold and black striped birthday cone */}
               <path
-                d="M 160 90 L 200 10 L 240 90 Z"
-                fill="#FFB4B4"
-                stroke="#1B1625"
-                strokeWidth="6"
+                d="M 165 110 L 200 15 L 235 110 Z"
+                fill="#1E1B18"
+                stroke="#FBBF24"
+                strokeWidth="5"
                 strokeLinejoin="round"
               />
-              {/* Striped patterns */}
-              <path d="M 180 50 L 220 50" stroke="#0B5BF0" strokeWidth="6" strokeLinecap="round" />
-              <path d="M 170 70 L 230 70" stroke="#FFFFB4" strokeWidth="6" strokeLinecap="round" />
+              {/* Shiny Gold Stripes */}
+              <path d="M 180 70 L 220 70" stroke="#FBBF24" strokeWidth="6" strokeLinecap="round" />
+              <path d="M 170 92 L 230 92" stroke="#FBBF24" strokeWidth="6" strokeLinecap="round" />
               {/* Pom-pom */}
-              <circle cx="200" cy="5" r="12" fill="#0B5BF0" stroke="#1B1625" strokeWidth="4" />
+              <circle cx="200" cy="12" r="11" fill="#FBBF24" stroke="#000000" strokeWidth="3.5" />
             </motion.g>
           )}
 
@@ -282,21 +292,20 @@ export default function SmolCatIllustration({
             <motion.g
               initial={{ y: -30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 14 }}
             >
-              {/* Shiny gold crown */}
+              {/* Shiny royal gold crown */}
               <path
-                d="M 150 90 L 140 50 L 175 70 L 200 40 L 225 70 L 260 50 L 250 90 Z"
-                fill="#FFFF80"
-                stroke="#1B1625"
-                strokeWidth="6"
+                d="M 145 110 L 135 65 L 172 88 L 200 52 L 228 88 L 265 65 L 255 110 Z"
+                fill="#FBBF24"
+                stroke="#000000"
+                strokeWidth="5.5"
                 strokeLinejoin="round"
               />
-              {/* Little jewels */}
-              <circle cx="140" cy="45" r="5" fill="#0B5BF0" stroke="#1B1625" strokeWidth="3" />
-              <circle cx="200" cy="35" r="5" fill="#FF6666" stroke="#1B1625" strokeWidth="3" />
-              <circle cx="260" cy="45" r="5" fill="#0B5BF0" stroke="#1B1625" strokeWidth="3" />
-              <rect x="193" y="68" width="14" height="10" rx="3" fill="#0B5BF0" stroke="#1B1625" strokeWidth="2" />
+              {/* Ruby Jewels */}
+              <circle cx="135" cy="60" r="5" fill="#EF4444" stroke="#000000" strokeWidth="2.5" />
+              <circle cx="200" cy="46" r="5" fill="#EF4444" stroke="#000000" strokeWidth="2.5" />
+              <circle cx="265" cy="60" r="5" fill="#EF4444" stroke="#000000" strokeWidth="2.5" />
             </motion.g>
           )}
 
@@ -304,39 +313,39 @@ export default function SmolCatIllustration({
             <motion.g
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transformTemplate={({ scale }) => `translate(200, 75) scale(${scale}) translate(-200, -75)`}
+              transformTemplate={({ scale }) => `translate(200, 100) scale(${scale}) translate(-200, -100)`}
               transition={{ type: 'spring', stiffness: 180, damping: 12 }}
             >
-              {/* Propeller hat dome */}
+              {/* Propeller hat dome in Gold */}
               <path
-                d="M 160 85 C 160 50, 240 50, 240 85 Z"
-                fill="#FF6666"
-                stroke="#1B1625"
-                strokeWidth="6"
+                d="M 165 105 C 165 65, 235 65, 235 105 Z"
+                fill="#FBBF24"
+                stroke="#000000"
+                strokeWidth="5.5"
                 strokeLinejoin="round"
               />
               {/* Hat peak */}
               <path
-                d="M 235 85 L 260 90 C 260 90, 255 98, 235 95 Z"
-                fill="#0B5BF0"
-                stroke="#1B1625"
-                strokeWidth="4"
+                d="M 230 105 L 255 110 Q 250 118 230 115 Z"
+                fill="#111115"
+                stroke="#000000"
+                strokeWidth="3.5"
                 strokeLinejoin="round"
               />
               {/* Propeller shaft */}
-              <line x1="200" y1="55" x2="200" y2="35" stroke="#1B1625" strokeWidth="6" strokeLinecap="round" />
+              <line x1="200" y1="72" x2="200" y2="48" stroke="#000000" strokeWidth="5.5" strokeLinecap="round" />
               {/* Rotating Propeller blades */}
               <motion.path
-                d="M 160 35 L 240 35"
-                stroke="#FFFF80"
-                strokeWidth="8"
+                d="M 160 48 L 240 48"
+                stroke="#111115"
+                strokeWidth="7"
                 strokeLinecap="round"
                 animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                style={{ originX: '200px', originY: '35px' }}
+                transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+                style={{ originX: '200px', originY: '48px' }}
               />
               {/* Little cap bead */}
-              <circle cx="200" cy="35" r="6" fill="#0B5BF0" stroke="#1B1625" strokeWidth="3" />
+              <circle cx="200" cy="48" r="6.5" fill="#FBBF24" stroke="#000000" strokeWidth="3" />
             </motion.g>
           )}
         </g>

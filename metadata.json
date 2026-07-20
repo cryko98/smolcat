@@ -1,6 +1,6 @@
 {
-  "name": "smol cat",
-  "description": "The smolest cat on Solana, here to save the trenches and make every trader happy again.",
+  "name": "Bullothy",
+  "description": "Bullothy is a baby bull living with short spine syndrome who is here to conquer the Solana trenches.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
