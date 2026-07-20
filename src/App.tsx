@@ -55,7 +55,7 @@ export default function App() {
   const [peeksCount, setPeeksCount] = useState(0);
 
   // Official BULLOTHY contract address
-  const contractAddress = "TGTrnjkirTrmJwdrHZ9MRh4J46C8jFRMs3Ayyozpump";
+  const contractAddress = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
   // Watch scroll to show peeking Bullothy
   useEffect(() => {
